@@ -1,0 +1,22 @@
+INSERT INTO GLOBOX.TB_TITLE_PRINCIPALS (tconst, ordering, nconst, category, job, characters) VALUES
+('tt0000001', 1, 'nm0000001', 'director', 'director', '\N'),
+('tt0000001', 2, 'nm0000002', 'actor', '\N', 'Carmencita'),
+('tt0000002', 1, 'nm0000003', 'director', 'director', '\N'),
+('tt0000002', 2, 'nm0000004', 'actor', '\N', 'Clown'),
+('tt0000003', 1, 'nm0000005', 'director', 'director', '\N'),
+('tt0000003', 2, 'nm0000006', 'actor', '\N', 'Pierrot'),
+('tt0000004', 1, 'nm0000007', 'director', 'director', '\N'),
+('tt0000004', 2, 'nm0000008', 'actor', '\N', 'Bock'),
+('tt0000005', 1, 'nm0000009', 'director', 'director', '\N'),
+('tt0000005', 2, 'nm0000010', 'actor', '\N', 'Blacksmith'),
+('tt0000006', 1, 'nm0000011', 'director', 'director', '\N'),
+('tt0000006', 2, 'nm0000012', 'actor', '\N', 'Opium Den Patron'),
+('tt0000007', 1, 'nm0000013', 'director', 'director', '\N'),
+('tt0000007', 2, 'nm0000014', 'actor', '\N', 'Corbett'),
+('tt0000008', 1, 'nm0000015', 'director', 'director', '\N'),
+('tt0000008', 2, 'nm0000016', 'actor', '\N', 'Sneezer'),
+('tt0000009', 1, 'nm0000017', 'director', 'director', '\N'),
+('tt0000009', 2, 'nm0000018', 'actor', '\N', 'Miss Jerry'),
+('tt0000010', 1, 'nm0000019', 'director', 'director', '\N'),
+('tt0000010', 2, 'nm0000020', 'actor', '\N', 'Factory Worker');
+
