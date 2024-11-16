@@ -1,4 +1,4 @@
-package com.globox.ali.ali_imdb_explorer;
+package com.globox.ali.imdb.explorer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
