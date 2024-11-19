@@ -1,10 +1,13 @@
 package com.globox.ali.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
@@ -12,7 +15,7 @@ import java.util.Set;
 @Table(name = "tb_title_basics")
 @Getter
 @Setter
-public class TitleBasicsEntity extends BaseEntity{
+public class TitleBasicsEntity extends BaseEntity {
     private String titleType;
     private String primaryTitle;
     private String originalTitle;
@@ -23,11 +26,14 @@ public class TitleBasicsEntity extends BaseEntity{
     private String genres;
 
     @OneToMany(mappedBy = "titleBasicsEntity")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private Set<TitleRatingsEntity> ratings;
 
     @OneToMany(mappedBy = "titleBasicsEntity")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private Set<TitleCrewEntity> crew;
 
     @OneToMany(mappedBy = "titleBasicsEntity")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private Set<TitlePrincipalsEntity> principals;
 }

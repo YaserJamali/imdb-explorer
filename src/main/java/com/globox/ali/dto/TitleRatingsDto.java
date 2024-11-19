@@ -2,13 +2,11 @@ package com.globox.ali.dto;
 
 
 import com.globox.ali.entities.TitleBasicsEntity;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 public class TitleRatingsDto extends BaseDto {
     private float averageRating;
     private int numVotes;

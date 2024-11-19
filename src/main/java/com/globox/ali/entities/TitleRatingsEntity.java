@@ -1,6 +1,8 @@
 package com.globox.ali.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,6 +17,7 @@ public class TitleRatingsEntity extends BaseEntity {
     private int numVotes;
     @ManyToOne
     @JoinColumn(name = "tconst", insertable = false, updatable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private TitleBasicsEntity titleBasicsEntity;
 
 }
