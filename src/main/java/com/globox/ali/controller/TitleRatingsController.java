@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/title-ratings")
-public class TitleRatingsController extends BaseAbstractController<TitleRatingsEntity, TitleRatingsDto> {
+public class TitleRatingsController extends BaseAbstractController<TitleRatingsEntity, TitleRatingsDto, String> {
 }

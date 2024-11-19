@@ -7,10 +7,11 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Service
-public abstract class BaseAbstractService<E extends BaseEntity, R extends BaseRepository<E>> {
+public abstract class BaseAbstractService<E extends BaseEntity, ID extends Serializable, R extends BaseRepository<E, ID>> {
 
     @Autowired
     protected R repository;
@@ -24,11 +25,11 @@ public abstract class BaseAbstractService<E extends BaseEntity, R extends BaseRe
         return repository.save(entity);
     }
 
-    public void deleteById(String id) {
+    public void deleteById(ID id) {
         repository.deleteById(id);
     }
 
-    public E findById(String id) {
+    public E findById(ID id) {
         return repository.findById(id).get();
     }
 

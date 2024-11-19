@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.nio.file.LinkOption;
+
 @RestController
 @RequestMapping("/title-crew")
-public class TitleCrewControllerImpl  extends BaseAbstractController<TitleCrewEntity, TitleCrewDto>{
+public class TitleCrewControllerImpl  extends BaseAbstractController<TitleCrewEntity, TitleCrewDto , Long>{
 
     @GetMapping
     public String test() {

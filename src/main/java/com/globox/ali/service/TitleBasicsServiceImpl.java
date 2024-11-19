@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class TitleBasicsServiceImpl
-        extends BaseAbstractService<TitleBasicsEntity, TitleBasicsRepositoryImpl> {
+        extends BaseAbstractService<TitleBasicsEntity, String, TitleBasicsRepositoryImpl> {
     public List<TitleBasicsEntity> getTitlesWithSameDirectorAndWriterAlive() {
         return repository.findAll().stream()
                 .filter(title -> title.getCrew().stream()
@@ -23,9 +23,9 @@ public class TitleBasicsServiceImpl
     public List<TitleBasicsEntity> getTitlesWithTwoActors(String actor1Id, String actor2Id) {
         return repository.findAll().stream()
                 .filter(title -> title.getPrincipals().stream()
-                        .anyMatch(principal -> principal.getActor().getId().equals(actor1Id)) &&
+                        .anyMatch(principal -> principal.getActor().getNconst().equals(actor1Id)) &&
                         title.getPrincipals().stream()
-                                .anyMatch(principal -> principal.getActor().getId().equals(actor2Id)))
+                                .anyMatch(principal -> principal.getActor().getNconst().equals(actor2Id)))
                 .collect(Collectors.toList());
     }
 

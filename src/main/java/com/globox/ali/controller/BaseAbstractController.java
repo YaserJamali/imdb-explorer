@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -20,13 +21,13 @@ import java.util.List;
 @Transactional(readOnly = true)
 @Validated
 @Slf4j
-public abstract class BaseAbstractController<E extends BaseEntity, D extends BaseDto> {
+public abstract class BaseAbstractController<E extends BaseEntity, D extends BaseDto, ID extends Serializable> {
     //    , S extends BaseAbstractService<E, ?>, M extends BaseAbstractMapper<D, E>
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(BaseAbstractController.class);
 
     @Autowired(required = true)
-    protected BaseAbstractService<E, ? extends JpaRepository<E, String>> service;
+    protected BaseAbstractService<E, ID, ? extends JpaRepository<E, ID>> service;
 
 
     @Autowired(required = true)
@@ -50,12 +51,12 @@ public abstract class BaseAbstractController<E extends BaseEntity, D extends Bas
 
     @DeleteMapping("/delete/{id}")
     @Transactional
-    public void deleteById(@PathVariable String id) {
+    public void deleteById(@PathVariable ID id) {
         service.deleteById(id);
     }
 
     @GetMapping("/find/{id}")
-    public D findById(@PathVariable String id) {
+    public D findById(@PathVariable ID id) {
         return mapper.convertDto(service.findById(id));
     }
 

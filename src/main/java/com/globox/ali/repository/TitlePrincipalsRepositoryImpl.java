@@ -4,5 +4,5 @@ import com.globox.ali.entities.TitlePrincipalsEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TitlePrincipalsRepositoryImpl extends BaseRepository<TitlePrincipalsEntity> {
+public interface TitlePrincipalsRepositoryImpl extends BaseRepository<TitlePrincipalsEntity, Long> {
 }

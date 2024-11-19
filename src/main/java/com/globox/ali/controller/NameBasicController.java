@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/names-basics")
 public class NameBasicController extends
-        BaseAbstractController<NameBasicsEntity, NameBasicsDto> {
+        BaseAbstractController<NameBasicsEntity, NameBasicsDto, String> {
 }

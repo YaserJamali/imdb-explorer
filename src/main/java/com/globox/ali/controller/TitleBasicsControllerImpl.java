@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/title-basics")
-public class TitleBasicsControllerImpl extends BaseAbstractController<TitleBasicsEntity, TitleBasicsDto> {
+public class TitleBasicsControllerImpl extends BaseAbstractController<TitleBasicsEntity, TitleBasicsDto, String> {
 
 }

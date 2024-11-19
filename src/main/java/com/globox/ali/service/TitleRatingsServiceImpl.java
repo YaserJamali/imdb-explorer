@@ -5,5 +5,5 @@ import com.globox.ali.repository.TitleRatingsRepositoryImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TitleRatingsServiceImpl extends BaseAbstractService<TitleRatingsEntity, TitleRatingsRepositoryImpl> {
+public class TitleRatingsServiceImpl extends BaseAbstractService<TitleRatingsEntity, String,TitleRatingsRepositoryImpl> {
 }

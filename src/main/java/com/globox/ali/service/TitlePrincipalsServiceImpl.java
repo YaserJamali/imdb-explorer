@@ -5,7 +5,7 @@ import com.globox.ali.repository.TitlePrincipalsRepositoryImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TitlePrincipalsServiceImpl extends BaseAbstractService<TitlePrincipalsEntity, TitlePrincipalsRepositoryImpl> {
+public class TitlePrincipalsServiceImpl extends BaseAbstractService<TitlePrincipalsEntity, Long, TitlePrincipalsRepositoryImpl> {
 
 
 }
