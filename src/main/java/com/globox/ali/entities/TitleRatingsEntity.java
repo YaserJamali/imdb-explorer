@@ -1,23 +1,24 @@
 package com.globox.ali.entities;
-
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-
 @Table(name = "tb_title_ratings")
 @Getter
 @Setter
-public class TitleRatingsEntity extends BaseEntity {
-    @Column(name = "AVERAGE_RATING")
+public class TitleRatingsEntity  extends BaseEntity{
+    @Id
+    @Column(name = "tconst")
+    private String tconst;
+
+    @Column(name = "average_rating")
     private float averageRating;
-    @Column(name = "NUMBER_OF_VOTES")
+
+    @Column(name = "number_of_votes")
     private int numVotes;
+
     @ManyToOne
     @JoinColumn(name = "tconst", insertable = false, updatable = false)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "tconst")
     private TitleBasicsEntity titleBasicsEntity;
 }

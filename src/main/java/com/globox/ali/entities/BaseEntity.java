@@ -18,7 +18,4 @@ import java.io.Serializable;
 @Setter
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
-    @Id
-    @Column(name = "tconst")
-    private String id;
 }

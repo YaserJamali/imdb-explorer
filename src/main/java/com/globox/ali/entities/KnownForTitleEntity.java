@@ -1,28 +1,24 @@
 package com.globox.ali.entities;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Entity
-@Table(name = "tb_title_crew")
+@Table(name = "tb_known_for_titles")
 @Getter
 @Setter
-public class TitleCrewEntity extends BaseEntity {
+public class KnownForTitleEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "director_id")
-    private NameBasicsEntity director;
+    @JoinColumn(name = "nconst")
+    private NameBasicsEntity nameBasicsEntity;
 
     @ManyToOne
-    @JoinColumn(name = "writer_id")
-    private NameBasicsEntity writer;
-
-    @ManyToOne
-    @JoinColumn(name = "title_id")
+    @JoinColumn(name = "tconst")
     private TitleBasicsEntity titleBasicsEntity;
 }

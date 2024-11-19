@@ -1,16 +1,12 @@
 package com.globox.ali.entities;
 
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Set;
+
+
 
 
 @Entity
@@ -18,21 +14,33 @@ import java.util.Set;
 @Getter
 @Setter
 public class NameBasicsEntity extends BaseEntity {
-    @Column(name = "PRIMARY_NAME")
+    @Id
+    @Column(name = "nconst")
+    private String nconst;
+
+    @Column(name = "primary_name")
     private String primaryName;
-    @Column(name = "BIRTH_YEAR")
+
+    @Column(name = "birth_year")
     private Integer birthYear;
-    @Column(name = "DEATH_YEAR")
+
+    @Column(name = "death_year")
     private Integer deathYear;
-    @OneToMany(mappedBy = "actor")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    private Set<TitlePrincipalsEntity> actedTitles;
+
+    @OneToMany(mappedBy = "nameBasicsEntity")
+    private Set<ProfessionEntity> professions;
+
+    @OneToMany(mappedBy = "nameBasicsEntity")
+    private Set<KnownForTitleEntity> knownForTitles;
+
     @OneToMany(mappedBy = "director")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private Set<TitleCrewEntity> directedTitles;
+
     @OneToMany(mappedBy = "writer")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private Set<TitleCrewEntity> writtenTitles;
+
+    @OneToMany(mappedBy = "actor")
+    private Set<TitlePrincipalsEntity> actedTitles;
 }
 
 

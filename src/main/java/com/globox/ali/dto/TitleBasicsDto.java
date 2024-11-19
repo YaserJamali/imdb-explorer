@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 public class TitleBasicsDto extends BaseDto {
-
+    private String tconst;
     private String titleType;
     private String primaryTitle;
     private String originalTitle;

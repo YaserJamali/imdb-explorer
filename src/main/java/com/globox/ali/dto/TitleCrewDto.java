@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TitleCrewDto extends BaseDto {
+    private Long id;
     private String directors;
     private String writers;
     private TitleBasicsEntity titleBasicsEntity;
