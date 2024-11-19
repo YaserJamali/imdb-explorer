@@ -1,23 +1,26 @@
 package com.globox.ali.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "tb_title_crew")
 @Getter
 @Setter
+
 public class TitleCrewEntity extends BaseEntity {
-    private String directors;
-    private String writers;
     @ManyToOne
-    @JoinColumn(name = "tconst", insertable = false, updatable = false)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JoinColumn(name = "DIRECTOR_ID")
+    private NameBasicsEntity director;
+    @ManyToOne
+    @JoinColumn(name = "WRITER_ID")
+    private NameBasicsEntity writer;
+    @ManyToOne
+    @JoinColumn(name = "TITLE_ID")
     private TitleBasicsEntity titleBasicsEntity;
 }

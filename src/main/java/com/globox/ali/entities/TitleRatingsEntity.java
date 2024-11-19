@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+
 @Table(name = "tb_title_ratings")
 @Getter
 @Setter
@@ -17,7 +18,6 @@ public class TitleRatingsEntity extends BaseEntity {
     private int numVotes;
     @ManyToOne
     @JoinColumn(name = "tconst", insertable = false, updatable = false)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "tconst")
     private TitleBasicsEntity titleBasicsEntity;
-
 }
