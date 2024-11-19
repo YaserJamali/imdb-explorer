@@ -4,7 +4,6 @@ import com.globox.ali.converter.BaseConverter;
 import com.globox.ali.dto.BaseDto;
 import com.globox.ali.entities.BaseEntity;
 import com.globox.ali.service.BaseAbstractService;
-import jakarta.websocket.server.PathParam;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,12 +25,12 @@ public abstract class BaseAbstractController<E extends BaseEntity, D extends Bas
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(BaseAbstractController.class);
 
-    @Autowired
-    private BaseAbstractService<E, ? extends JpaRepository<E, Long>> service;
+    @Autowired(required = true)
+    protected BaseAbstractService<E, ? extends JpaRepository<E, String>> service;
 
 
-    @Autowired
-    private BaseConverter<D, E> mapper;
+    @Autowired(required = true)
+    protected BaseConverter<D, E> mapper;
 
 
     @PostMapping("/save")
@@ -45,27 +44,30 @@ public abstract class BaseAbstractController<E extends BaseEntity, D extends Bas
     @PutMapping("/update")
     @Transactional
     public D update(@RequestBody D d) {
-//        LOGGER.info("UPDATE Method Called");
-//        LOGGER.info("Parameter Of The UPDATE Method Called: "+d);
         service.update(mapper.convertEntity(d));
         return d;
     }
 
     @DeleteMapping("/delete/{id}")
     @Transactional
-    public void deleteById(@PathVariable Long id) {
+    public void deleteById(@PathVariable String id) {
         service.deleteById(id);
     }
 
     @GetMapping("/find/{id}")
-    public D findById(@PathVariable Long id) {
+    public D findById(@PathVariable String id) {
         return mapper.convertDto(service.findById(id));
     }
 
-    @GetMapping("/find")
-    public List<D> findAll(@PathParam("pageNumber") int pageNumber,
-                           @PathParam("pageSize") int pageSize) {
-        return mapper.convertDto(service.findAll(pageNumber, pageSize));
+    //    @GetMapping("/find")
+//    public List<D> findAll(@PathParam("pageNumber") int pageNumber,
+//                           @PathParam("pageSize") int pageSize) {
+//        return mapper.convertDto(service.findAll(pageNumber, pageSize));
+//    }
+    @GetMapping("/find-all")
+    public List<D> findAll() {
+        List<E> all = service.findAll();
+        return mapper.convertDto(all);
     }
 
 

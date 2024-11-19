@@ -29,7 +29,7 @@ public class LoggerAspect {
     }
 
 
-    @Around("execution(* com.hmaitech.onlineshop.controller..*(..))")
+    @Around("execution(* com.globox.ali.controller..*(..))")
     public Object logger(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Signature signature = proceedingJoinPoint.getSignature();
         LogModel logModel = new LogModel();

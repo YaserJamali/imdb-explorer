@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.globox.ali")
 @EnableJpaRepositories
 @EnableTransactionManagement
 @EnableJpaAuditing

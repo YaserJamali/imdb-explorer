@@ -10,12 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public abstract class BaseAbstractService<E extends BaseEntity, R extends BaseRepository<E, Long>> {
+public abstract class BaseAbstractService<E extends BaseEntity, R extends BaseRepository<E>> {
 
     @Autowired
     protected R repository;
-
-
 
 
     public E save(E entity) {
@@ -26,17 +24,22 @@ public abstract class BaseAbstractService<E extends BaseEntity, R extends BaseRe
         return repository.save(entity);
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         repository.deleteById(id);
     }
 
-    public E findById(Long id) {
+    public E findById(String id) {
         return repository.findById(id).get();
     }
 
-    public List<E> findAll(int pageNumber,int pageSize) {
+    public List<E> findAll(int pageNumber, int pageSize) {
 
         return repository.findAll(Pageable.ofSize(pageSize).withPage(pageNumber)).getContent();
+    }
+
+    public List<E> findAll() {
+
+        return repository.findAll();
     }
 
     public List<E> findByExample(E entity) {
