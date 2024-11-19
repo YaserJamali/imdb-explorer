@@ -1,7 +1,0 @@
-spring:
-  profiles:
-    active: prod
-  application:
-    name: ali-imdb-explorer
-server:
-  port: 8080
