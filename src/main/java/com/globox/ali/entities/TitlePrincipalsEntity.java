@@ -10,26 +10,19 @@ import lombok.Setter;
 @Table(name = "tb_title_principals")
 @Getter
 @Setter
-public class TitlePrincipalsEntity  extends BaseEntity{
+public class TitlePrincipalsEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "movie_id")
-    private String movieId;
-
-    @Column(name = "name")
-    private String name;
 
     @Column(name = "category")
     private String category;
 
     @ManyToOne
-    @JoinColumn(name = "actor_fr_id")
-    private NameBasicsEntity actor;
+    @JoinColumn(name = "tconst")
+    private TitleBasicsEntity titleBasicsEntity;
 
     @ManyToOne
-    @JoinColumn(name = "title_fr_id")
-    private TitleBasicsEntity titleBasicsEntity;
+    @JoinColumn(name = "nconst")
+    private NameBasicsEntity actor;
 }
-

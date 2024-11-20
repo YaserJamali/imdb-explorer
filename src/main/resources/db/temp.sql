@@ -5,10 +5,10 @@ create table tb_known_for_titles
         primary key,
     nconst varchar(255) null,
     tconst varchar(255) null,
-    constraint FK2bqry9qg1d2eaigmmdunucn8n
-        foreign key (tconst) references tb_title_basics (tconst),
-    constraint FK9ff4jl01v8pcd9jqsx3yfk4n8
-        foreign key (nconst) references tb_name_basics (nconst)
+    constraint FK_nconst_known_for
+        foreign key (nconst) references tb_name_basics (nconst),
+    constraint FK_tconst_known_for
+        foreign key (tconst) references tb_title_basics (tconst)
 );
 
 -- auto-generated definition
@@ -28,10 +28,9 @@ create table tb_professions
         primary key,
     profession varchar(255) null,
     nconst     varchar(255) null,
-    constraint FK86k499jy7kb7cpnt0oivsjwdp
+    constraint FK_nconst_professions
         foreign key (nconst) references tb_name_basics (nconst)
 );
-
 
 -- auto-generated definition
 create table tb_title_basics
@@ -56,28 +55,26 @@ create table tb_title_crew
     director_id varchar(255) null,
     title_id    varchar(255) null,
     writer_id   varchar(255) null,
-    constraint FK17h3p16ywphfv7l1ml8eti15a
+    constraint FK_director
         foreign key (director_id) references tb_name_basics (nconst),
-    constraint FK2h2gt9b97oc9xi0qonskkpd1k
-        foreign key (writer_id) references tb_name_basics (nconst),
-    constraint FK4xh4ci963m4d9ul24hlxr77p2
-        foreign key (title_id) references tb_title_basics (tconst)
+    constraint FK_title
+        foreign key (title_id) references tb_title_basics (tconst),
+    constraint FK_writer
+        foreign key (writer_id) references tb_name_basics (nconst)
 );
 
 -- auto-generated definition
 create table tb_title_principals
 (
-    id          bigint auto_increment
+    id       bigint auto_increment
         primary key,
-    category    varchar(255) null,
-    movie_id    varchar(255) null,
-    name        varchar(255) null,
-    actor_fr_id varchar(255) null,
-    title_fr_id varchar(255) null,
-    constraint FK1eireafmp943f366uv7elwnym
-        foreign key (title_fr_id) references tb_title_basics (tconst),
-    constraint FK4k9jh4pcu8ni1nqlgieqwwk9u
-        foreign key (actor_fr_id) references tb_name_basics (nconst)
+    category varchar(255) null,
+    tconst   varchar(255) null,
+    nconst   varchar(255) null,
+    constraint FK_nconst
+        foreign key (nconst) references tb_name_basics (nconst),
+    constraint FK_tconst
+        foreign key (tconst) references tb_title_basics (tconst)
 );
 
 -- auto-generated definition
@@ -87,7 +84,7 @@ create table tb_title_ratings
         primary key,
     average_rating  float        null,
     number_of_votes int          null,
-    constraint FKp60dpghls31xejpejwmf2jdia
+    constraint FK_tconst_title_ratings
         foreign key (tconst) references tb_title_basics (tconst)
 );
 

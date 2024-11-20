@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.util.Set;
 
 
+
 @Entity
 @Table(name = "tb_title_basics")
 @Getter
@@ -50,7 +51,6 @@ public class TitleBasicsEntity extends BaseEntity {
     @OneToMany(mappedBy = "titleBasicsEntity")
     private Set<TitlePrincipalsEntity> principals;
 }
-
 
 
 

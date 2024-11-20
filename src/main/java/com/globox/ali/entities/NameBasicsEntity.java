@@ -9,6 +9,7 @@ import java.util.Set;
 
 
 
+
 @Entity
 @Table(name = "tb_name_basics")
 @Getter
@@ -27,11 +28,8 @@ public class NameBasicsEntity extends BaseEntity {
     @Column(name = "death_year")
     private Integer deathYear;
 
-    @OneToMany(mappedBy = "nameBasicsEntity")
-    private Set<ProfessionEntity> professions;
-
-    @OneToMany(mappedBy = "nameBasicsEntity")
-    private Set<KnownForTitleEntity> knownForTitles;
+    @OneToMany(mappedBy = "actor")
+    private Set<TitlePrincipalsEntity> actedTitles;
 
     @OneToMany(mappedBy = "director")
     private Set<TitleCrewEntity> directedTitles;
@@ -39,8 +37,12 @@ public class NameBasicsEntity extends BaseEntity {
     @OneToMany(mappedBy = "writer")
     private Set<TitleCrewEntity> writtenTitles;
 
-    @OneToMany(mappedBy = "actor")
-    private Set<TitlePrincipalsEntity> actedTitles;
+    @OneToMany(mappedBy = "nameBasicsEntity")
+    private Set<ProfessionEntity> professions;
+
+    @OneToMany(mappedBy = "nameBasicsEntity")
+    private Set<KnownForTitleEntity> knownForTitles;
 }
+
 
 
