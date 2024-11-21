@@ -44,7 +44,7 @@ public class TitleCrewInputService {
 
 
     @Transactional
-    @PostConstruct
+//    @PostConstruct
     public void importTitleCrew() throws IOException {
         File file = new File("C:\\Users\\Yaser\\Downloads\\title.crew.tsv.gz");
         try (InputStream inputStream = new FileInputStream(file);
@@ -55,7 +55,7 @@ public class TitleCrewInputService {
             List<TitleCrewEntity> titleCrewEntities = new ArrayList<>();
             int recordCount = 0;
             for (CSVRecord record : csvParser) {
-                if (recordCount >= 2) {
+                if (recordCount >= 2000) {
                     break;
                 }
                 TitleCrewEntity entity = new TitleCrewEntity();

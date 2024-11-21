@@ -1,66 +1,53 @@
 -- 1 بازگرداندن تمام عناوینی که کارگردان و نویسنده یکسان هستند و هنوز زندهاند
 
 
-SELECT tb.* ,tc.*
+# تمام عناوینی که کارگردان و نویسنده یکسان دارند
+SELECT tb.tconst, tb.primary_title, tb.original_title, tb.start_year, tb.end_year, tw.writers, td.directors
 FROM tb_title_basics tb
-         JOIN tb_title_crew tc ON tb.tconst = tc.title_id
-         JOIN tb_name_basics nb ON tc.director_id = nb.nconst AND tc.writer_id = nb.nconst
-WHERE nb.death_year IS NULL;
+         JOIN title_crew_entity_directors td ON tb.tconst = td.title_crew_entity_tconst
+         JOIN title_crew_entity_writers tw ON tb.tconst = tw.title_crew_entity_tconst
+WHERE td.directors = tw.writers;
 
-
-#  2. بازگرداندن تمام عناوینی که دو بازیگر در آن بازی کردهاند
-
-
-SELECT tb.*
+# تمام عناوینی که کارگردان و نویسنده یکسان دارند
+# view
+CREATE VIEW view_directors_writers_same AS
+SELECT tb.*,
+       tw.writers                  id_of_writer_of_movie,
+       td.directors                id_of_director_of_movie,
+       tw.title_crew_entity_tconst id_of_W_movie,
+       td.title_crew_entity_tconst id_of_D_movie
 FROM tb_title_basics tb
-         JOIN tb_title_principals tp1 ON tb.tconst = tp1.tconst
-         JOIN tb_title_principals tp2 ON tb.tconst = tp2.tconst
-WHERE tp1.nconst = 'actor1Id'
-  AND tp2.nconst = 'actor2Id';
+         JOIN title_crew_entity_directors td ON tb.tconst = td.title_crew_entity_tconst
+         JOIN title_crew_entity_writers tw ON tb.tconst = tw.title_crew_entity_tconst
+WHERE td.directors = tw.writers;
+
+# **********************************
 
 
-
-
-
-
-
--- اول این کوری را میزنیم سپس از خروجی آن
-
-SELECT tp1.nconst AS actor1, tp2.nconst AS actor2, tb.primary_title
-FROM tb_title_principals tp1
-         JOIN tb_title_principals tp2 ON tp1.tconst = tp2.tconst
-         JOIN tb_title_basics tb ON tp1.tconst = tb.tconst
-WHERE tp1.nconst <> tp2.nconst;
-
--- نمونه
-
-SELECT tb.*
+SELECT tb.*,
+       tw.writers                  id_of_writer_of_movie,
+       td.directors                id_of_director_of_movie,
+       tw.title_crew_entity_tconst id_of_W_movie,
+       td.title_crew_entity_tconst id_of_D_movie
 FROM tb_title_basics tb
-         JOIN tb_title_principals tp1 ON tb.tconst = tp1.tconst
-         JOIN tb_title_principals tp2 ON tb.tconst = tp2.tconst
-WHERE tp1.nconst = 'nm2263402'
-  AND tp2.nconst = 'nm0492774';
+         JOIN title_crew_entity_directors td ON tb.tconst = td.title_crew_entity_tconst
+         JOIN title_crew_entity_writers tw ON tb.tconst = tw.title_crew_entity_tconst
+WHERE td.directors = tw.writers;
 
 
-SELECT tb.*
+select tn.*
+from tb_name_basics tn
+where birth_year IS not NULL
+  and death_year is null;
+
+
+create view VW_VIEW_DIRECTORS_WRITERS_SAME_AND_ALIVE as
+SELECT tb.*, tn.*
 FROM tb_title_basics tb
-         JOIN tb_title_principals tp1 ON tb.tconst = tp1.tconst
-         JOIN tb_title_principals tp2 ON tb.tconst = tp2.tconst
-WHERE tp1.nconst = ?
-  AND tp2.nconst = ?;
-
-
-#     3. بازگرداندن بهترین عناوین هر سال برای یک ژانر بر اساس تعداد آرا و امتیاز
-
-
-SELECT tb.*, tr.average_rating, tr.number_of_votes
-FROM tb_title_basics tb
-         JOIN tb_title_ratings tr ON tb.tconst = tr.tconst
-         JOIN (SELECT b.start_year, b.tconst, MAX(tr.average_rating) AS max_rating
-               FROM tb_title_basics b
-                        JOIN tb_title_ratings tr ON b.tconst = tr.tconst
-               WHERE b.genres LIKE '%com%'
-               GROUP BY b.start_year, b.tconst) max_ratings
-              ON tb.tconst = max_ratings.tconst AND tr.average_rating = max_ratings.max_rating
-ORDER BY tb.start_year, tr.average_rating DESC, tr.number_of_votes DESC;
+         JOIN title_crew_entity_directors td ON tb.tconst = td.title_crew_entity_tconst
+         JOIN title_crew_entity_writers tw ON tb.tconst = tw.title_crew_entity_tconst
+         JOIN tb_name_basics tn ON td.directors = tn.nconst AND tw.writers = tn.nconst
+WHERE td.directors = tw.writers
+  AND tn.birth_year IS NOT NULL
+  AND tn.death_year IS NULL;
 

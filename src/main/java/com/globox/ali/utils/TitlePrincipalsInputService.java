@@ -47,7 +47,7 @@ public class TitlePrincipalsInputService {
 
 
     @Transactional
-    @PostConstruct
+//    @PostConstruct
     public void importTitlePrincipals() throws IOException {
         File file = new File("C:\\Users\\Yaser\\Downloads\\title.principals.tsv.gz");
         try (InputStream inputStream = new FileInputStream(file);
@@ -58,7 +58,7 @@ public class TitlePrincipalsInputService {
             List<TitlePrincipalsEntity> titlePrincipalsEntities = new ArrayList<>();
             int recordCount = 0;
             for (CSVRecord record : csvParser) {
-                if (recordCount >= 2) {
+                if (recordCount >= 2000) {
                     break;
                 }
                 TitlePrincipalsEntity entity = new TitlePrincipalsEntity();
