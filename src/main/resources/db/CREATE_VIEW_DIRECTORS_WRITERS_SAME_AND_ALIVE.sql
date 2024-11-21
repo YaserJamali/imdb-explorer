@@ -16,3 +16,7 @@ from (((`globox`.`tb_title_basics` `tb` join `globox`.`title_crew_entity_directo
        on ((`tb`.`tconst` = `tw`.`title_crew_entity_tconst`))) join `globox`.`tb_name_basics` `tn`
       on (((`td`.`directors` = `tn`.`nconst`) and (`tw`.`writers` = `tn`.`nconst`))))
 where ((`td`.`directors` = `tw`.`writers`) and (`tn`.`birth_year` is not null) and (`tn`.`death_year` is null));
+
+-- for alive scenario
+-- INSERT INTO globox.tb_name_basics (nconst, birth_year, death_year, primary_name)
+-- VALUES ('tt0000009', ۱۹۸۶, null, 'Ali Jamali');
