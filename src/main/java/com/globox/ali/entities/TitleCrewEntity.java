@@ -1,9 +1,14 @@
 package com.globox.ali.entities;
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "tb_title_crew")
@@ -11,18 +16,9 @@ import lombok.Setter;
 @Setter
 public class TitleCrewEntity extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "director_id")
-    private NameBasicsEntity director;
-
-    @ManyToOne
-    @JoinColumn(name = "writer_id")
-    private NameBasicsEntity writer;
-
-    @ManyToOne
-    @JoinColumn(name = "title_id")
-    private TitleBasicsEntity titleBasicsEntity;
+    private String tconst;
+    @ElementCollection
+    private List<String> directors;
+    @ElementCollection
+    private List<String> writers;
 }

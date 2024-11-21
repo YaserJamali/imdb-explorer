@@ -1,16 +1,16 @@
 package com.globox.ali.dto;
 
 
-import com.globox.ali.entities.TitleCrewEntity;
-import com.globox.ali.entities.TitlePrincipalsEntity;
-import com.globox.ali.entities.TitleRatingsEntity;
 import lombok.*;
 
-import java.util.Set;
+import java.util.List;
 
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class TitleBasicsDto extends BaseDto {
     private String tconst;
     private String titleType;
@@ -20,8 +20,5 @@ public class TitleBasicsDto extends BaseDto {
     private Integer startYear;
     private Integer endYear;
     private Integer runtimeMinutes;
-    private String genres;
-    private Set<TitleRatingsEntity> ratings;
-    private Set<TitleCrewEntity> crew;
-    private Set<TitlePrincipalsEntity> principals;
+    private List<String> genres;
 }

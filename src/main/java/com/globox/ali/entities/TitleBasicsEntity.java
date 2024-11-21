@@ -5,8 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
-
+import java.util.List;
 
 
 @Entity
@@ -14,42 +13,25 @@ import java.util.Set;
 @Getter
 @Setter
 public class TitleBasicsEntity extends BaseEntity {
+
     @Id
-    @Column(name = "tconst")
     private String tconst;
-
-    @Column(name = "title_type")
+    @Column(name = "TITLE_TYPE")
     private String titleType;
-
-    @Column(name = "primary_title")
+    @Column(name = "PRIMARY_TITLE")
     private String primaryTitle;
-
-    @Column(name = "original_title")
+    @Column(name = "ORIGINAL_TITLE")
     private String originalTitle;
-
-    @Column(name = "is_adult")
+    @Column(name = "IS_ADULT")
     private boolean isAdult;
-
-    @Column(name = "start_year")
+    @Column(name = "START_YEAR")
     private Integer startYear;
-
-    @Column(name = "end_year")
+    @Column(name = "END_YEAR")
     private Integer endYear;
-
-    @Column(name = "runtime_minutes")
+    @Column(name = "RUNTIME_MINUTES")
     private Integer runtimeMinutes;
-
-    @Column(name = "genres")
-    private String genres;
-
-    @OneToMany(mappedBy = "titleBasicsEntity")
-    private Set<TitleRatingsEntity> ratings;
-
-    @OneToMany(mappedBy = "titleBasicsEntity")
-    private Set<TitleCrewEntity> crew;
-
-    @OneToMany(mappedBy = "titleBasicsEntity")
-    private Set<TitlePrincipalsEntity> principals;
+    @ElementCollection
+    private List<String> genres;
 }
 
 

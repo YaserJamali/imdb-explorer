@@ -1,18 +1,18 @@
 package com.globox.ali.dto;
 
 
-import com.globox.ali.entities.TitleBasicsEntity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class TitlePrincipalsDto extends BaseDto {
-    private Long id;
-    private String movieId;
-    private String name;
+    private String tconst;
+    private Integer ordering;
+    private String nconst;
     private String category;
-    private TitleBasicsEntity titleBasicsEntity;
-
-
+    private String job;
+    private String characters;
 }

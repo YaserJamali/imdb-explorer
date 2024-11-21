@@ -34,13 +34,13 @@ public class TitleBasicInputService {
             for (CSVRecord record : csvParser) {
                 TitleBasicsEntity entity = new TitleBasicsEntity();
                 entity.setTconst(record.get("tconst"));
-                entity.setTitleType(record.get("TITLE_TYPE"));
-                entity.setPrimaryTitle(record.get("PRIMARY_TITLE"));
-                entity.setOriginalTitle(record.get("ORIGINAL_TITLE"));
-                entity.setAdult(parseBoolean(record.get("IS_ADULT")));
-                entity.setStartYear(parseInteger(record.get("START_YEAR")));
-                entity.setEndYear(parseInteger(record.get("END_YEAR")));
-                entity.setRuntimeMinutes(parseInteger(record.get("RUNTIME_MINUTES")));
+                entity.setTitleType(record.get("titleType"));
+                entity.setPrimaryTitle(record.get("primaryTitle"));
+                entity.setOriginalTitle(record.get("originalTitle"));
+                entity.setAdult(parseBoolean(record.get("isAdult")));
+                entity.setStartYear(parseInteger(record.get("startYear")));
+                entity.setEndYear(parseInteger(record.get("endYear")));
+                entity.setRuntimeMinutes(parseInteger(record.get("runtimeMinutes")));
                 entity.setGenres(parseArray(record.get("genres")));
                 titleBasicsEntities.add(entity);
             }
@@ -61,18 +61,18 @@ public class TitleBasicInputService {
             List<TitleBasicsEntity> titleBasicsEntities = new ArrayList<>();
             int recordCount = 0;
             for (CSVRecord record : csvParser) {
-                if (recordCount >= 2) {
+                if (recordCount >= 3000) {
                     break;
                 }
                 TitleBasicsEntity entity = new TitleBasicsEntity();
                 entity.setTconst(record.get("tconst"));
-                entity.setTitleType(record.get("TITLE_TYPE"));
-                entity.setPrimaryTitle(record.get("PRIMARY_TITLE"));
-                entity.setOriginalTitle(record.get("ORIGINAL_TITLE"));
-                entity.setAdult(parseBoolean(record.get("IS_ADULT")));
-                entity.setStartYear(parseInteger(record.get("START_YEAR")));
-                entity.setEndYear(parseInteger(record.get("END_YEAR")));
-                entity.setRuntimeMinutes(parseInteger(record.get("RUNTIME_MINUTES")));
+                entity.setTitleType(record.get("titleType"));
+                entity.setPrimaryTitle(record.get("primaryTitle"));
+                entity.setOriginalTitle(record.get("originalTitle"));
+                entity.setAdult(parseBoolean(record.get("isAdult")));
+                entity.setStartYear(parseInteger(record.get("startYear")));
+                entity.setEndYear(parseInteger(record.get("endYear")));
+                entity.setRuntimeMinutes(parseInteger(record.get("runtimeMinutes")));
                 entity.setGenres(parseArray(record.get("genres")));
                 titleBasicsEntities.add(entity);
                 recordCount++;

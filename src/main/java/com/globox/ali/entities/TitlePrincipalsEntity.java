@@ -1,28 +1,39 @@
 package com.globox.ali.entities;
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 
 @Entity
-@Table(name = "tb_title_principals")
+@Table(name = "TB_TITLE_PRINCIPALS")
 @Getter
 @Setter
+@IdClass(TitlePrincipalsEntity.TitlePrincipalsId.class)
 public class TitlePrincipalsEntity extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "category")
+    private String tconst;
+    @Id
+    private Integer ordering;
+    private String nconst;
     private String category;
+    private String job;
+    private String characters;
 
-    @ManyToOne
-    @JoinColumn(name = "tconst")
-    private TitleBasicsEntity titleBasicsEntity;
 
-    @ManyToOne
-    @JoinColumn(name = "nconst")
-    private NameBasicsEntity actor;
+    @Getter
+    @Setter
+    @EqualsAndHashCode
+    public static class TitlePrincipalsId implements Serializable {
+        private String tconst;
+        private Integer ordering;
+
+    }
 }

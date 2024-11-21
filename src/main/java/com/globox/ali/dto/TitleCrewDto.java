@@ -1,15 +1,17 @@
 package com.globox.ali.dto;
 
 
-import com.globox.ali.entities.TitleBasicsEntity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class TitleCrewDto extends BaseDto {
-    private Long id;
-    private String directors;
-    private String writers;
-    private TitleBasicsEntity titleBasicsEntity;
+    private String tconst;
+    private List<String> directors;
+    private List<String> writers;
 }

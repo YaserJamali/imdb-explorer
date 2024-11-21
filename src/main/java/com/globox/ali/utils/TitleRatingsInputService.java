@@ -34,8 +34,8 @@ public class TitleRatingsInputService {
             for (CSVRecord record : csvParser) {
                 TitleRatingsEntity entity = new TitleRatingsEntity();
                 entity.setTconst(record.get("tconst"));
-                entity.setAverageRating(Double.parseDouble(record.get("AVERAGE_RATING")));
-                entity.setNumVotes(Integer.parseInt(record.get("NUMBER_OF_VOTES")));
+                entity.setAverageRating(Double.parseDouble(record.get("averageRating")));
+                entity.setNumVotes(Integer.parseInt(record.get("numVotes")));
                 titleRatingsEntities.add(entity);
             }
             repository.saveAll(titleRatingsEntities);
@@ -44,7 +44,7 @@ public class TitleRatingsInputService {
 
 
     @Transactional
-    @PostConstruct
+//    @PostConstruct
     public void importTitleRatings() throws IOException {
         File file = new File("C:\\Users\\Yaser\\Downloads\\title.ratings.tsv.gz");
         try (InputStream inputStream = new FileInputStream(file);
@@ -55,15 +55,15 @@ public class TitleRatingsInputService {
             List<TitleRatingsEntity> titleRatingsEntities = new ArrayList<>();
             int recordCount = 0;
             for (CSVRecord record : csvParser) {
-                if (recordCount >= 2) {
+                if (recordCount >= 2000) {
                     break;
                 }
                 TitleRatingsEntity entity = new TitleRatingsEntity();
                 entity.setTconst(record.get("tconst"));
-                entity.setAverageRating(Double.parseDouble(record.get("AVERAGE_RATING")));
-                entity.setNumVotes(Integer.parseInt(record.get("NUMBER_OF_VOTES")));
+                entity.setAverageRating(Double.parseDouble(record.get("averageRating")));
+                entity.setNumVotes(Integer.parseInt(record.get("numVotes")));
                 titleRatingsEntities.add(entity);
-                recordCount++;
+//                recordCount++;
             }
             repository.saveAll(titleRatingsEntities);
         }

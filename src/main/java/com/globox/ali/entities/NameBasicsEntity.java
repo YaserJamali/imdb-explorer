@@ -4,10 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
-
-
-
+import java.util.List;
 
 
 @Entity
@@ -16,32 +13,17 @@ import java.util.Set;
 @Setter
 public class NameBasicsEntity extends BaseEntity {
     @Id
-    @Column(name = "nconst")
     private String nconst;
-
-    @Column(name = "primary_name")
+    @Column(name = "PRIMARY_NAME")
     private String primaryName;
-
     @Column(name = "birth_year")
     private Integer birthYear;
-
-    @Column(name = "death_year")
+    @Column(name = "DEATH_YEAR")
     private Integer deathYear;
-
-    @OneToMany(mappedBy = "actor")
-    private Set<TitlePrincipalsEntity> actedTitles;
-
-    @OneToMany(mappedBy = "director")
-    private Set<TitleCrewEntity> directedTitles;
-
-    @OneToMany(mappedBy = "writer")
-    private Set<TitleCrewEntity> writtenTitles;
-
-    @OneToMany(mappedBy = "nameBasicsEntity")
-    private Set<ProfessionEntity> professions;
-
-    @OneToMany(mappedBy = "nameBasicsEntity")
-    private Set<KnownForTitleEntity> knownForTitles;
+    @ElementCollection
+    private List<String> primaryProfession;
+    @ElementCollection
+    private List<String> knownForTitles;
 }
 
 

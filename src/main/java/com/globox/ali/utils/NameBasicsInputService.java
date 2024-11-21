@@ -2,7 +2,6 @@ package com.globox.ali.utils;
 
 import com.globox.ali.entities.NameBasicsEntity;
 import com.globox.ali.repository.NameBasicRepositoryImpl;
-import jakarta.annotation.PostConstruct;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -34,9 +33,9 @@ public class NameBasicsInputService {
             for (CSVRecord record : csvParser) {
                 NameBasicsEntity entity = new NameBasicsEntity();
                 entity.setNconst(record.get("nconst"));
-                entity.setPrimaryName(record.get("PRIMARY_NAME"));
-                entity.setBirthYear(parseInteger(record.get("BIRTH_YEAR")));
-                entity.setDeathYear(parseInteger(record.get("DEATH_YEAR")));
+                entity.setPrimaryName(record.get("primaryName"));
+                entity.setBirthYear(parseInteger(record.get("birthYear")));
+                entity.setDeathYear(parseInteger(record.get("deathYear")));
                 entity.setPrimaryProfession(parseArray(record.get("primaryProfession")));
                 entity.setKnownForTitles(parseArray(record.get("knownForTitles")));
                 nameBasicsEntities.add(entity);
@@ -58,7 +57,7 @@ public class NameBasicsInputService {
             List<NameBasicsEntity> nameBasicsEntities = new ArrayList<>();
             int recordCount = 0;
             for (CSVRecord record : csvParser) {
-                if (recordCount >= 2) {
+                if (recordCount >= 3000) {
                     break;
                 }
                 NameBasicsEntity entity = new NameBasicsEntity();

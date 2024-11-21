@@ -9,16 +9,9 @@ import lombok.Setter;
 @Setter
 public class TitleRatingsEntity  extends BaseEntity{
     @Id
-    @Column(name = "tconst")
     private String tconst;
-
-    @Column(name = "average_rating")
-    private float averageRating;
-
-    @Column(name = "number_of_votes")
-    private int numVotes;
-
-    @ManyToOne
-    @JoinColumn(name = "tconst", insertable = false, updatable = false)
-    private TitleBasicsEntity titleBasicsEntity;
+    @Column(name="AVERAGE_RATING")
+    private Double averageRating;
+    @Column(name = "NUMBER_OF_VOTES")
+    private Integer numVotes;
 }
