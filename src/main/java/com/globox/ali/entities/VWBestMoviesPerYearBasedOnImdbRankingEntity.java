@@ -9,7 +9,7 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name = "vw_best_movies_per_year_based_on_imdb_ranking")
+@Table(name = "VW_BEST_MOVIES_PER_YEAR_BASED_ON_IMDB_RANKING")
 @Getter
 @Setter
 

@@ -9,7 +9,7 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name = "vw_title_with_two_or_more_category_type")
+@Table(name = "VW_TITLE_WITH_TWO_OR_MORE_CATEGORY_TYPE")
 @Getter
 @Setter
 
