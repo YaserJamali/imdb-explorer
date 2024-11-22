@@ -1,0 +1,10 @@
+package com.globox.ali.service;
+
+import com.globox.ali.entities.VWViewDirectorsWritersSameAndAliveWithNoPresentBirthDayEntity;
+import com.globox.ali.repository.VWViewDirectorsWritersSameAndAliveWithNoPresentBirthDayRepositoryImpl;
+import org.springframework.stereotype.Service;
+
+@Service
+public class VWViewDirectorsWritersSameAndAliveWithNoPresentBirthDayServiceImpl
+        extends BaseAbstractService<VWViewDirectorsWritersSameAndAliveWithNoPresentBirthDayEntity, String, VWViewDirectorsWritersSameAndAliveWithNoPresentBirthDayRepositoryImpl> {
+}
