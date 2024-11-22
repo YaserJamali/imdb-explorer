@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class VMDirectorsWritersSameAndAliveDto extends BaseDto {
+public class VWDirectorsWritersSameAndAliveDto extends BaseDto {
     private String tconst;
     private String titleType;
     private String primaryTitle;
