@@ -12,6 +12,7 @@ import lombok.Setter;
 @Table(name = "vw_best_movies_per_year_based_on_imdb_ranking")
 @Getter
 @Setter
+
 public class VWBestMoviesPerYearBasedOnImdbRankingEntity extends BaseEntity {
 
     @Id

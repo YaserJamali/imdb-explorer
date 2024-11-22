@@ -12,6 +12,7 @@ import lombok.Setter;
 @Table(name = "vw_title_with_two_or_more_category_type")
 @Getter
 @Setter
+
 public class VWTitleWithTwoOrMoreCategoryTypeEntity extends BaseEntity {
 
     @Id
