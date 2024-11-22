@@ -20,10 +20,10 @@ FROM tb_title_basics tbt
      tb_title_principals ttp ON tbt.tconst = ttp.tconst
          JOIN
      tb_name_basics tbn ON ttp.nconst = tbn.nconst
-# WHERE ttp.category = 'actor'
+WHERE ttp.category = 'actor'
   AND tbt.tconst IN (SELECT ttp.tconst
                      FROM tb_title_principals ttp
-#                      WHERE ttp.category = 'actor'
+                     WHERE ttp.category = 'actor'
                      GROUP BY ttp.tconst
                      HAVING COUNT(ttp.nconst) >= 2)
 ORDER BY tbt.primary_title;

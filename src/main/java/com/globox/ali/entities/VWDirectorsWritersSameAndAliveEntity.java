@@ -9,7 +9,7 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name = "VW_VIEW_DIRECTORS_WRITERS_SAME_AND_ALIVE")
+@Table(name = "vw_directors_writers_same_and_alive")
 @Getter
 @Setter
 public class VWDirectorsWritersSameAndAliveEntity extends BaseEntity {

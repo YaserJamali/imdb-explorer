@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class VWTitleWithTwoOrMoreCategoryTypeEntity extends BaseEntity {
+public class VWTitleWithTwoOrMoreSameCategoryEntity extends BaseEntity {
 
     @Id
     private String tconst;
@@ -34,11 +34,11 @@ public class VWTitleWithTwoOrMoreCategoryTypeEntity extends BaseEntity {
     @Column(name = "nconst")
     private String nconst;
     @Column(name = "primary_name")
-    private Double primaryName;
+    private String primaryName;
     @Column(name = "birth_year")
     private Integer birthYear;
     @Column(name = "death_year")
-    private String deathYear;
+    private Integer deathYear;
     @Column(name = "category")
     private String category;
     @Column(name = "characters")
