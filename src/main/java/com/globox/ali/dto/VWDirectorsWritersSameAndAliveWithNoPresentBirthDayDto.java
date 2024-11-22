@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class VWViewDirectorsWritersSameAndAliveWithNoPresentBirthDayDto extends BaseDto {
+public class VWDirectorsWritersSameAndAliveWithNoPresentBirthDayDto extends BaseDto {
 
     private String tconst;
     private Integer endYear;

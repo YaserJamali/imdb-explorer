@@ -9,10 +9,10 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name = "vw_view_directors_writers_same_and_alive_b_null")
+@Table(name = "vw_directors_writers_same_and_alive_b_null")
 @Getter
 @Setter
-public class VWViewDirectorsWritersSameAndAliveWithNoPresentBirthDayEntity extends BaseEntity {
+public class VWDirectorsWritersSameAndAliveWithNoPresentBirthDayEntity extends BaseEntity {
 
     @Id
     private String tconst;

@@ -1,4 +1,4 @@
-# CREATE VIEW globox.VW_TITLE_WITH_TWO_OR_MORE_ACTORS AS
+CREATE VIEW globox.VW_TITLE_WITH_TWO_OR_MORE_ACTORS AS
 SELECT tbt.tconst,
        tbt.end_year,
        tbt.is_adult,

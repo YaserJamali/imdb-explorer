@@ -12,7 +12,7 @@ import lombok.Setter;
 @Table(name = "vw_view_directors_writers_same_and_alive")
 @Getter
 @Setter
-public class VWViewDirectorsWritersSameAndAliveEntity extends BaseEntity {
+public class VWDirectorsWritersSameAndAliveEntity extends BaseEntity {
 
     @Id
     private String tconst;

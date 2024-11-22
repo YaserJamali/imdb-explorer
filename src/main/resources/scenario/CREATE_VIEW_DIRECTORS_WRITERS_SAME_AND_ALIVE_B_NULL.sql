@@ -1,4 +1,4 @@
-create view globox.vw_view_directors_writers_same_and_alive_b_null as
+create view globox.vw_directors_writers_same_and_alive_b_null as
 select `tb`.`tconst`          AS `tconst`,
        `tb`.`end_year`        AS `end_year`,
        `tb`.`is_adult`        AS `is_adult`,
