@@ -1,4 +1,4 @@
-create view globox.vw_view_directors_writers_same_and_alive as
+create view GLOBOX.VW_VIEW_DIRECTORS_WRITERS_SAME_AND_ALIVE as
 select `tb`.`tconst`          AS `tconst`,
        `tb`.`end_year`        AS `end_year`,
        `tb`.`is_adult`        AS `is_adult`,
@@ -7,16 +7,20 @@ select `tb`.`tconst`          AS `tconst`,
        `tb`.`runtime_minutes` AS `runtime_minutes`,
        `tb`.`start_year`      AS `start_year`,
        `tb`.`title_type`      AS `title_type`,
-       `tn`.`nconst`          AS `nconst`,
-       `tn`.`birth_year`      AS `birth_year`,
-       `tn`.`death_year`      AS `death_year`,
-       `tn`.`primary_name`    AS `primary_name`
-from (((`globox`.`tb_title_basics` `tb` join `globox`.`title_crew_entity_directors` `td`
-        on ((`tb`.`tconst` = `td`.`title_crew_entity_tconst`))) join `globox`.`title_crew_entity_writers` `tw`
-       on ((`tb`.`tconst` = `tw`.`title_crew_entity_tconst`))) join `globox`.`tb_name_basics` `tn`
-      on (((`td`.`directors` = `tn`.`nconst`) and (`tw`.`writers` = `tn`.`nconst`))))
-where ((`td`.`directors` = `tw`.`writers`) and (`tn`.`birth_year` is not null) and (`tn`.`death_year` is null));
-
+       `tnb`.`nconst`         AS `nconst`,
+       `tnb`.`birth_year`     AS `birth_year`,
+       `tnb`.`death_year`     AS `death_year`,
+       `tnb`.`primary_name`   AS `primary_name`
+FROM tb_title_basics tb
+         JOIN
+     title_crew_entity_directors td ON tb.tconst = td.title_crew_entity_tconst
+         JOIN
+     title_crew_entity_writers tw ON tb.tconst = tw.title_crew_entity_tconst
+         JOIN
+     tb_name_basics tnb ON td.directors = tnb.nconst
+WHERE td.directors = tw.writers
+  AND tnb.death_year IS NULL
+  and tnb.birth_year is not null;
 -- for alive scenario
--- INSERT INTO globox.tb_name_basics (nconst, birth_year, death_year, primary_name)
--- VALUES ('tt0000009', ۱۹۸۶, null, 'Ali Jamali');
+INSERT INTO globox.tb_name_basics (nconst, birth_year, death_year, primary_name)
+VALUES ('tt0000009', 1986, null, 'Ali Jamali');

@@ -1,4 +1,4 @@
-create view globox.view_directors_writers_same as
+create view GLOBOX.VW_VIEW_DIRECTORS_WRITERS_SAME  as
 select `tb`.`tconst`                   AS `tconst`,
        `tb`.`end_year`                 AS `end_year`,
        `tb`.`is_adult`                 AS `is_adult`,
@@ -11,7 +11,13 @@ select `tb`.`tconst`                   AS `tconst`,
        `td`.`directors`                AS `id_of_director_of_movie`,
        `tw`.`title_crew_entity_tconst` AS `id_of_W_movie`,
        `td`.`title_crew_entity_tconst` AS `id_of_D_movie`
-from ((`globox`.`tb_title_basics` `tb` join `globox`.`title_crew_entity_directors` `td`
-       on ((`tb`.`tconst` = `td`.`title_crew_entity_tconst`))) join `globox`.`title_crew_entity_writers` `tw`
-      on ((`tb`.`tconst` = `tw`.`title_crew_entity_tconst`)))
-where (`td`.`directors` = `tw`.`writers`);
+FROM
+    tb_title_basics tb
+        JOIN
+    title_crew_entity_directors td ON tb.tconst = td.title_crew_entity_tconst
+        JOIN
+    title_crew_entity_writers tw ON tb.tconst = tw.title_crew_entity_tconst
+        JOIN
+    tb_name_basics tnb ON td.directors = tnb.nconst
+WHERE
+    td.directors = tw.writers
