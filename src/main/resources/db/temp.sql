@@ -88,3 +88,13 @@ create table tb_title_ratings
         foreign key (tconst) references tb_title_basics (tconst)
 );
 
+
+SELECT
+    genres,
+    COUNT(*) AS genre_count
+FROM
+    title_basics_entity_genres
+GROUP BY
+    genres
+ORDER BY
+    genre_count DESC;
