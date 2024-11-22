@@ -61,7 +61,7 @@ public class TitleBasicInputService {
             List<TitleBasicsEntity> titleBasicsEntities = new ArrayList<>();
             int recordCount = 0;
             for (CSVRecord record : csvParser) {
-                if (recordCount >= 3000) {
+                if (recordCount >= 200000) {
                     break;
                 }
                 TitleBasicsEntity entity = new TitleBasicsEntity();

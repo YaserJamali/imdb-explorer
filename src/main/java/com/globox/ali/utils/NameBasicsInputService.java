@@ -2,6 +2,7 @@ package com.globox.ali.utils;
 
 import com.globox.ali.entities.NameBasicsEntity;
 import com.globox.ali.repository.NameBasicRepositoryImpl;
+import jakarta.annotation.PostConstruct;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -57,7 +58,7 @@ public class NameBasicsInputService {
             List<NameBasicsEntity> nameBasicsEntities = new ArrayList<>();
             int recordCount = 0;
             for (CSVRecord record : csvParser) {
-                if (recordCount >= 3000) {
+                if (recordCount >= 200000) {
                     break;
                 }
                 NameBasicsEntity entity = new NameBasicsEntity();

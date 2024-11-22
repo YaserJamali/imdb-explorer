@@ -31,7 +31,7 @@ public class TitlePrincipalsEntity extends BaseEntity {
     @Getter
     @Setter
     @EqualsAndHashCode
-    public static class TitlePrincipalsId implements Serializable {
+    static class TitlePrincipalsId implements Serializable {
         private String tconst;
         private Integer ordering;
 

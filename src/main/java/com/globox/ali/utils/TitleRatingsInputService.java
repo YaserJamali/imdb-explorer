@@ -2,7 +2,6 @@ package com.globox.ali.utils;
 
 import com.globox.ali.entities.TitleRatingsEntity;
 import com.globox.ali.repository.TitleRatingsRepositoryImpl;
-import jakarta.annotation.PostConstruct;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -53,11 +52,11 @@ public class TitleRatingsInputService {
              CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withDelimiter('\t').withFirstRecordAsHeader())) {
 
             List<TitleRatingsEntity> titleRatingsEntities = new ArrayList<>();
-            int recordCount = 0;
+//            int recordCount = 0;
             for (CSVRecord record : csvParser) {
-                if (recordCount >= 2000) {
-                    break;
-                }
+//                if (recordCount >= 2000) {
+//                    break;
+//                }
                 TitleRatingsEntity entity = new TitleRatingsEntity();
                 entity.setTconst(record.get("tconst"));
                 entity.setAverageRating(Double.parseDouble(record.get("averageRating")));

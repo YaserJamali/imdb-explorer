@@ -58,7 +58,7 @@ public class TitlePrincipalsInputService {
             List<TitlePrincipalsEntity> titlePrincipalsEntities = new ArrayList<>();
             int recordCount = 0;
             for (CSVRecord record : csvParser) {
-                if (recordCount >= 2000) {
+                if (recordCount >= 200000) {
                     break;
                 }
                 TitlePrincipalsEntity entity = new TitlePrincipalsEntity();

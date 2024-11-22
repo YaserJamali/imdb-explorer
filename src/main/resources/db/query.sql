@@ -1,6 +1,7 @@
 -- 1 بازگرداندن تمام عناوینی که کارگردان و نویسنده یکسان هستند و هنوز زندهاند
 
 
+#
 # تمام عناوینی که کارگردان و نویسنده یکسان دارند
 SELECT tb.tconst, tb.primary_title, tb.original_title, tb.start_year, tb.end_year, tw.writers, td.directors
 FROM tb_title_basics tb
@@ -8,6 +9,7 @@ FROM tb_title_basics tb
          JOIN title_crew_entity_writers tw ON tb.tconst = tw.title_crew_entity_tconst
 WHERE td.directors = tw.writers;
 
+#
 # تمام عناوینی که کارگردان و نویسنده یکسان دارند
 # view
 CREATE VIEW view_directors_writers_same AS
@@ -21,6 +23,7 @@ FROM tb_title_basics tb
          JOIN title_crew_entity_writers tw ON tb.tconst = tw.title_crew_entity_tconst
 WHERE td.directors = tw.writers;
 
+#
 # **********************************
 
 
