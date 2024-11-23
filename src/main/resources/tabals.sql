@@ -1,210 +1,88 @@
--- auto-generated definition
-CREATE TABLE IF NOT EXISTS GLOBOX.NAME_BASICS_ENTITY_KNOWN_FOR_TITLES
+CREATE TABLE IF NOT EXISTS NAME_BASICS_ENTITY_PRIMARY_PROFESSION
 (
-    name_basics_entity_nconst
-    varchar
-(
-    255
-) not null,
-    known_for_titles varchar
-(
-    255
-) null,
-    constraint FK2xyqwj4g2x42ahedarfg2hqaq
-    foreign key
-(
-    name_basics_entity_nconst
-) references tb_name_basics
-(
-    nconst
-)
-    );
+    NAME_BASICS_ENTITY_NCONST VARCHAR(255) NOT NULL,
+    PRIMARY_PROFESSION        VARCHAR(255) NULL,
+    CONSTRAINT FK_NAME_BASICS_ENTITY_PRIMARY_PROFESSION_NCONST
+        FOREIGN KEY (NAME_BASICS_ENTITY_NCONST) REFERENCES TB_NAME_BASICS (NCONST)
+);
 
--- auto-generated definition
-CREATE TABLE IF NOT EXISTS GLOBOX.name_basics_entity_primary_profession
-(
-    name_basics_entity_nconst
-    varchar
-(
-    255
-) not null,
-    primary_profession varchar
-(
-    255
-) null,
-    constraint FKdm7g2n2718q5lfwa6f5u7i52
-    foreign key
-(
-    name_basics_entity_nconst
-) references tb_name_basics
-(
-    nconst
-)
-    );
 
--- auto-generated definition
-CREATE TABLE IF NOT EXISTS GLOBOX.TB_NAME_BASICS
-(
-    nconst
-    varchar
-(
-    255
-) not null
-    primary key,
-    birth_year int null,
-    death_year int null,
-    primary_name varchar
-(
-    255
-) null
-    );
 
--- auto-generated definition
-CREATE TABLE IF NOT EXISTS GLOBOX.TB_TITLE_BASICS
+CREATE TABLE IF NOT EXISTS TB_NAME_BASICS
 (
-    tconst
-    varchar
-(
-    255
-) not null
-    primary key,
-    end_year int null,
-    is_adult bit null,
-    original_title varchar
-(
-    255
-) null,
-    primary_title varchar
-(
-    255
-) null,
-    runtime_minutes int null,
-    start_year int null,
-    title_type varchar
-(
-    255
-) null
-    );
+    NCONST       VARCHAR(255) NOT NULL
+        PRIMARY KEY,
+    BIRTH_YEAR   INT          NULL,
+    DEATH_YEAR   INT          NULL,
+    PRIMARY_NAME VARCHAR(255) NULL
+);
 
--- auto-generated definition
-CREATE TABLE IF NOT EXISTS GLOBOX.TB_TITLE_CREW
-(
-    tconst
-    varchar
-(
-    255
-) not null
-    primary key
-    );
 
--- auto-generated definition
-CREATE TABLE IF NOT EXISTS GLOBOX.TB_TITLE_PRINCIPALS
+CREATE TABLE IF NOT EXISTS TB_TITLE_BASICS
 (
-    tconst
-    varchar
-(
-    255
-) not null,
-    category varchar
-(
-    255
-) null,
-    characters varchar
-(
-    255
-) null,
-    job varchar
-(
-    255
-) null,
-    nconst varchar
-(
-    255
-) null,
-    ordering int not null,
-    primary key
-(
-    tconst,
-    ordering
-)
-    );
+    TCONST          VARCHAR(255) NOT NULL
+        PRIMARY KEY,
+    END_YEAR        INT          NULL,
+    IS_ADULT        BIT          NULL,
+    ORIGINAL_TITLE  VARCHAR(255) NULL,
+    PRIMARY_TITLE   VARCHAR(255) NULL,
+    RUNTIME_MINUTES INT          NULL,
+    START_YEAR      INT          NULL,
+    TITLE_TYPE      VARCHAR(255) NULL
+);
 
--- auto-generated definition
-CREATE TABLE IF NOT EXISTS GLOBOX.TB_TITLE_RATINGS
-(
-    tconst
-    varchar
-(
-    255
-) not null
-    primary key,
-    average_rating double null,
-    number_of_votes int null
-    );
 
--- auto-generated definition
-CREATE TABLE IF NOT EXISTS GLOBOX.TITLE_BASICS_ENTITY_GENRES
+CREATE TABLE IF NOT EXISTS TB_TITLE_CREW
 (
-    title_basics_entity_tconst
-    varchar
-(
-    255
-) not null,
-    genres varchar
-(
-    255
-) null,
-    constraint FKp3hbfwdbicnmbaut1xf58abd5
-    foreign key
-(
-    title_basics_entity_tconst
-) references tb_title_basics
-(
-    tconst
-)
-    );
+    TCONST VARCHAR(255) NOT NULL
+        PRIMARY KEY
+);
 
--- auto-generated definition
-CREATE TABLE IF NOT EXISTS GLOBOX.TITLE_CREW_ENTITY_DIRECTORS
-(
-    title_crew_entity_tconst
-    varchar
-(
-    255
-) not null,
-    directors varchar
-(
-    255
-) null,
-    constraint FK9146gx8109j9i9g3a6ukm9hcm
-    foreign key
-(
-    title_crew_entity_tconst
-) references tb_title_crew
-(
-    tconst
-)
-    );
 
--- auto-generated definition
-CREATE TABLE IF NOT EXISTS  GLOBOX.TITLE_CREW_ENTITY_WRITERS
+CREATE TABLE IF NOT EXISTS TB_TITLE_PRINCIPALS
 (
-    title_crew_entity_tconst
-    varchar
+    TCONST     VARCHAR(255) NOT NULL,
+    CATEGORY   VARCHAR(255) NULL,
+    CHARACTERS VARCHAR(255) NULL,
+    JOB        VARCHAR(255) NULL,
+    NCONST     VARCHAR(255) NULL,
+    ORDERING   INT          NOT NULL,
+    PRIMARY KEY (TCONST, ORDERING),
+    CONSTRAINT FK_TITLE_PRINCIPALS_NCONST
+        FOREIGN KEY (NCONST) REFERENCES TB_NAME_BASICS (NCONST),
+    CONSTRAINT FK_TITLE_PRINCIPALS_TCONST
+        FOREIGN KEY (TCONST) REFERENCES TB_TITLE_BASICS (TCONST)
+);
+
+CREATE TABLE IF NOT EXISTS TB_TITLE_RATINGS
 (
-    255
-) not null,
-    writers varchar
+    TCONST          VARCHAR(255) NOT NULL
+        PRIMARY KEY,
+    AVERAGE_RATING  DOUBLE       NULL,
+    NUMBER_OF_VOTES INT          NULL
+);
+
+CREATE TABLE IF NOT EXISTS TITLE_BASICS_ENTITY_GENRES
 (
-    255
-) null,
-    constraint FKmvpit47u27h97fqs5ni4havwb
-    foreign key
+    TITLE_BASICS_ENTITY_TCONST VARCHAR(255) NOT NULL,
+    GENRES                     VARCHAR(255) NULL,
+    CONSTRAINT FK_TITLE_BASICS_ENTITY_GENRES_TCONST
+        FOREIGN KEY (TITLE_BASICS_ENTITY_TCONST) REFERENCES TB_TITLE_BASICS (TCONST)
+);
+
+CREATE TABLE IF NOT EXISTS TITLE_CREW_ENTITY_DIRECTORS
 (
-    title_crew_entity_tconst
-) references tb_title_crew
+    TITLE_CREW_ENTITY_TCONST VARCHAR(255) NOT NULL,
+    DIRECTORS                VARCHAR(255) NULL,
+    CONSTRAINT FK_TITLE_CREW_ENTITY_DIRECTORS_TCONST
+        FOREIGN KEY (TITLE_CREW_ENTITY_TCONST) REFERENCES TB_TITLE_CREW (TCONST)
+);
+
+CREATE TABLE IF NOT EXISTS TITLE_CREW_ENTITY_WRITERS
 (
-    tconst
-)
-    );
+    TITLE_CREW_ENTITY_TCONST VARCHAR(255) NOT NULL,
+    WRITERS                  VARCHAR(255) NULL,
+    CONSTRAINT FK_TITLE_CREW_ENTITY_WRITERS_TCONST
+        FOREIGN KEY (TITLE_CREW_ENTITY_TCONST) REFERENCES TB_TITLE_CREW (TCONST)
+);
 
