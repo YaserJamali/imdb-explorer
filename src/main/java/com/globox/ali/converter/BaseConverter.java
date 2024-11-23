@@ -1,14 +1,15 @@
 package com.globox.ali.converter;
 
+import com.globox.ali.dto.BaseDto;
+import com.globox.ali.entities.BaseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 
-
 @Service
-public interface BaseConverter<E, D> {
+public interface BaseConverter<E extends BaseEntity, D extends BaseDto> {
 
     E convertDto(D d);
 

@@ -4,5 +4,6 @@ import com.globox.ali.entities.VWDirectorsWritersSameAndAliveEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VWDirectorsWritersSameAndAliveRepositoryImpl extends BaseRepository<VWDirectorsWritersSameAndAliveEntity, String> {
+public interface VWDirectorsWritersSameAndAliveRepositoryImplI
+        extends IBaseImmutableRepository<VWDirectorsWritersSameAndAliveEntity, String> {
 }

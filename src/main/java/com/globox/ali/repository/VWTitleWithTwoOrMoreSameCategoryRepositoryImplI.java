@@ -4,6 +4,6 @@ import com.globox.ali.entities.VWTitleWithTwoOrMoreSameCategoryEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VWTitleWithTwoOrMoreSameCategoryRepositoryImpl
-        extends BaseRepository<VWTitleWithTwoOrMoreSameCategoryEntity, String> {
+public interface VWTitleWithTwoOrMoreSameCategoryRepositoryImplI
+        extends IBaseImmutableRepository<VWTitleWithTwoOrMoreSameCategoryEntity, String> {
 }

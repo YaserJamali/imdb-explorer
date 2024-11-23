@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/same-director-and-writer-alive")
 public class VWDirectorsWritersSameAndAliveController
-        extends BaseAbstractController<VWDirectorsWritersSameAndAliveEntity, VWDirectorsWritersSameAndAliveDto, String> {
+        extends BaseAbstractViewsController<VWDirectorsWritersSameAndAliveEntity, VWDirectorsWritersSameAndAliveDto, String> {
 }

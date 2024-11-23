@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/same-director-and-writer-alive-without-birthday")
 public class VWDirectorsWritersSameAndAliveWithNoPresentBirthDayController
-        extends BaseAbstractController<VWDirectorsWritersSameAndAliveWithNoPresentBirthDayEntity, VWDirectorsWritersSameAndAliveWithNoPresentBirthDayDto, String> {
+        extends BaseAbstractViewsController<VWDirectorsWritersSameAndAliveWithNoPresentBirthDayEntity, VWDirectorsWritersSameAndAliveWithNoPresentBirthDayDto, String> {
 }

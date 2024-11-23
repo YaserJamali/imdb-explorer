@@ -1,7 +1,7 @@
 package com.globox.ali.utils;
 
 import com.globox.ali.entities.TitleRatingsEntity;
-import com.globox.ali.repository.TitleRatingsRepositoryImpl;
+import com.globox.ali.repository.TitleRatingsRepositoryImplI;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -20,7 +20,7 @@ import java.util.List;
 public class TitleRatingsInputService {
 
     @Autowired
-    private TitleRatingsRepositoryImpl repository;
+    private TitleRatingsRepositoryImplI repository;
 
     @Transactional
     public void importTitleRatings(File file) throws IOException {

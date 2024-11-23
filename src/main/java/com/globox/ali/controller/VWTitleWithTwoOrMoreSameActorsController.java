@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/movie-with-two-same-actors")
 public class VWTitleWithTwoOrMoreSameActorsController
-        extends BaseAbstractController<VWTitleWithTwoOrMoreSameActorsEntity, VWTitleWithTwoOrMoreSameActorsDto, String> {
+        extends BaseAbstractViewsController<VWTitleWithTwoOrMoreSameActorsEntity, VWTitleWithTwoOrMoreSameActorsDto, String> {
 }

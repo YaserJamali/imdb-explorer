@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Mapper(componentModel = "spring")
-public interface TitleBasicMapper extends BaseConverter<TitleBasicsDto, TitleBasicsEntity> {
+public interface TitleBasicMapper extends BaseConverter<TitleBasicsEntity, TitleBasicsDto> {
 
 }

@@ -1,13 +1,10 @@
 package com.globox.ali.repository;
 
 import com.globox.ali.entities.TitleBasicsEntity;
-import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface TitleBasicsRepositoryImpl extends BaseRepository<TitleBasicsEntity, String> {
+public interface TitleBasicsRepositoryImplI extends IBaseRepository<TitleBasicsEntity, String> {
 
 //    @Query("SELECT t FROM TitleBasicsEntity t " +
 //            "JOIN TitleCrewEntity c ON t.tconst = c.tconst " +

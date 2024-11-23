@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 @Mapper(componentModel = "spring")
 public interface VWBestMoviesPerYearBasedOnImdbRankingMapper
-        extends BaseConverter<VWBestMoviesPerYearBasedOnImdbRankingDto, VWBestMoviesPerYearBasedOnImdbRankingEntity> {
+        extends BaseConverter<VWBestMoviesPerYearBasedOnImdbRankingEntity, VWBestMoviesPerYearBasedOnImdbRankingDto> {
 
 }

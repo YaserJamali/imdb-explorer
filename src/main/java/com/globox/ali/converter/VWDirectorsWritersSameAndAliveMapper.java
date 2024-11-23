@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Mapper(componentModel = "spring")
-public interface VWDirectorsWritersSameAndAliveMapper extends BaseConverter<VWDirectorsWritersSameAndAliveDto, VWDirectorsWritersSameAndAliveEntity> {
+public interface VWDirectorsWritersSameAndAliveMapper extends BaseConverter<VWDirectorsWritersSameAndAliveEntity, VWDirectorsWritersSameAndAliveDto> {
 
 }

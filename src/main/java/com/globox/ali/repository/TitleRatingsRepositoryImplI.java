@@ -4,5 +4,5 @@ import com.globox.ali.entities.TitleRatingsEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TitleRatingsRepositoryImpl extends BaseRepository<TitleRatingsEntity, String> {
+public interface TitleRatingsRepositoryImplI extends IBaseRepository<TitleRatingsEntity, String> {
 }

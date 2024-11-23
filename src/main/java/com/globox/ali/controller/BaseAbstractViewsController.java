@@ -2,7 +2,7 @@ package com.globox.ali.controller;
 
 import com.globox.ali.dto.BaseDto;
 import com.globox.ali.entities.BaseEntity;
-import com.globox.ali.service.BaseAbstractService;
+import com.globox.ali.service.BaseImmutableAbstractService;
 import jakarta.websocket.server.PathParam;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -21,33 +21,13 @@ import java.util.List;
 @Transactional(readOnly = true)
 @Validated
 @Slf4j
-public abstract class BaseAbstractController<E extends BaseEntity, D extends BaseDto, ID extends Serializable> {
+public abstract class BaseAbstractViewsController<E extends BaseEntity, D extends BaseDto, ID extends Serializable> {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(BaseAbstractController.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(BaseAbstractViewsController.class);
 
     @Autowired(required = true)
-    protected BaseAbstractService<E, D, ID, ? extends JpaRepository<E, ID>> service;
+    protected BaseImmutableAbstractService<E, D, ID, ? extends JpaRepository<E, ID>> service;
 
-
-    @PostMapping("/save")
-    @Transactional
-    public D save(@RequestBody D d) {
-
-        return service.save(d);
-
-    }
-
-    @PutMapping("/update")
-    @Transactional
-    public D update(@RequestBody D d) {
-        return service.update(d);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    @Transactional
-    public void deleteById(@PathVariable ID id) {
-        service.deleteById(id);
-    }
 
     @GetMapping("/find/{id}")
     public D findById(@PathVariable ID id) {
@@ -70,7 +50,8 @@ public abstract class BaseAbstractController<E extends BaseEntity, D extends Bas
     @GetMapping("/find-all/{pageNumber}/{pageSize}")
     public List<D> findAll(
             @PathParam("pageNumber") Integer pageNumber,
-            @PathParam("pageSize") Integer pageSize) {
+            @PathParam("pageSize") Integer pageSize
+    ) {
         return service.findAll(pageNumber, pageSize);
     }
 
@@ -79,10 +60,8 @@ public abstract class BaseAbstractController<E extends BaseEntity, D extends Bas
         return service.findAll();
     }
 
-
     @PostMapping("/find")
     public List<D> findByExample(@RequestBody D example) {
         return service.findByExample(example);
     }
-
 }

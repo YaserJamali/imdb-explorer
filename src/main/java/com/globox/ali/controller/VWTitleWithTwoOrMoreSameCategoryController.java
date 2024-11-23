@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/movie-with-two-same-category")
 public class VWTitleWithTwoOrMoreSameCategoryController
-        extends BaseAbstractController<VWTitleWithTwoOrMoreSameCategoryEntity, VWTitleWithTwoOrMoreSameCategoryDto, String> {
+        extends BaseAbstractViewsController<VWTitleWithTwoOrMoreSameCategoryEntity, VWTitleWithTwoOrMoreSameCategoryDto, String> {
 }

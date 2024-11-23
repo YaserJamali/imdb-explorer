@@ -1,8 +1,7 @@
 package com.globox.ali.utils;
 
 import com.globox.ali.entities.NameBasicsEntity;
-import com.globox.ali.repository.NameBasicRepositoryImpl;
-import jakarta.annotation.PostConstruct;
+import com.globox.ali.repository.NameBasicRepositoryImplI;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -21,7 +20,7 @@ import java.util.List;
 public class NameBasicsInputService {
 
     @Autowired
-    private NameBasicRepositoryImpl nameBasicsRepository;
+    private NameBasicRepositoryImplI nameBasicsRepository;
 
     @Transactional
     public void importNameBasics(File file) throws IOException {

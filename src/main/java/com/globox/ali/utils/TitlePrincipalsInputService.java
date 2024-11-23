@@ -1,8 +1,7 @@
 package com.globox.ali.utils;
 
 import com.globox.ali.entities.TitlePrincipalsEntity;
-import com.globox.ali.repository.TitlePrincipalsRepositoryImpl;
-import jakarta.annotation.PostConstruct;
+import com.globox.ali.repository.TitlePrincipalsRepositoryImplI;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -21,7 +20,7 @@ import java.util.List;
 public class TitlePrincipalsInputService {
 
     @Autowired
-    private TitlePrincipalsRepositoryImpl titlePrincipalsRepository;
+    private TitlePrincipalsRepositoryImplI titlePrincipalsRepository;
 
     @Transactional
     public void importTitlePrincipals(File file) throws IOException {

@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 @Mapper(componentModel = "spring")
 public interface VWDirectorsWritersSameAndAliveWithNoPresentBirthDayMapper
-        extends BaseConverter<VWDirectorsWritersSameAndAliveWithNoPresentBirthDayDto, VWDirectorsWritersSameAndAliveWithNoPresentBirthDayEntity> {
+        extends BaseConverter<VWDirectorsWritersSameAndAliveWithNoPresentBirthDayEntity, VWDirectorsWritersSameAndAliveWithNoPresentBirthDayDto> {
 
 }

@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 @Mapper(componentModel = "spring")
 public interface VWTitleWithTwoOrMoreSameActorsMapper
-        extends BaseConverter<VWTitleWithTwoOrMoreSameActorsDto, VWTitleWithTwoOrMoreSameActorsEntity> {
+        extends BaseConverter<VWTitleWithTwoOrMoreSameActorsEntity, VWTitleWithTwoOrMoreSameActorsDto> {
 
 }
