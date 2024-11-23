@@ -18,7 +18,7 @@ WITH RankedMovies AS (SELECT tbt.tconst,
                              tbt.title_type,
                              tbg.title_basics_entity_tconst,
                              tbg.genres,
-                             tr.tconst AS rating_tconst,
+                             tr.tconst                                                                                                            AS rating_tconst,
                              tr.average_rating,
                              tr.number_of_votes,
                              ROW_NUMBER() OVER (PARTITION BY tbt.start_year, tbg.genres ORDER BY tr.average_rating DESC, tr.number_of_votes DESC) AS row_num
@@ -44,38 +44,6 @@ SELECT tconst,
 FROM RankedMovies
 WHERE row_num = 1
 ORDER BY start_year;
-CREATE TABLE IF NOT EXISTS `accounts`
-(
-    `customer_id`
-    int
-    NOT
-    NULL,
-    `account_number`
-    int
-    AUTO_INCREMENT
-    PRIMARY
-    KEY,
-    `account_type`
-    varchar
-(
-    100
-) NOT NULL,
-    `branch_address` varchar
-(
-    200
-) NOT NULL,
-    `created_at` date NOT NULL,
-    `created_by` varchar
-(
-    20
-) NOT NULL,
-    `updated_at` date DEFAULT NULL,
-    `updated_by` varchar
-(
-    20
-) DEFAULT NULL
-    );
-
 
 create view GLOBOX.VW_DIRECTORS_WRITERS_SAME as
 select `tb`.`tconst`                   AS `tconst`,

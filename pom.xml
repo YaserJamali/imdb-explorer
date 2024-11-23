@@ -104,50 +104,60 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>8.0.29</version>
+            </dependency>
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>4.20.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
-    <profiles>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <db.url>jdbc:mysql://localhost:3306/your_database_name</db.url>
-                <db.user>your_database_user</db.user>
-                <db.password>your_database_password</db.password>
-            </properties>
-        </profile>
-        <profile>
-            <id>test</id>
-            <properties>
-                <db.url>jdbc:h2:mem:testdb</db.url>
-                <db.user>sa</db.user>
-                <db.password>password</db.password>
-            </properties>
-        </profile>
-    </profiles>
+<!--    <profiles>-->
+<!--        <profile>-->
+<!--            <id>prod</id>-->
+<!--            <properties>-->
+<!--                <db.url>jdbc:mysql://127.0.0.1:3306/globox</db.url>-->
+<!--                <db.user>root</db.user>-->
+<!--                <db.password>123456</db.password>-->
+<!--            </properties>-->
+<!--        </profile>-->
+<!--        <profile>-->
+<!--            <id>test</id>-->
+<!--            <properties>-->
+<!--                <db.url>jdbc:h2:mem:testdb</db.url>-->
+<!--                <db.user>sa</db.user>-->
+<!--                <db.password>password</db.password>-->
+<!--            </properties>-->
+<!--        </profile>-->
+<!--    </profiles>-->
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <version>10.21.0</version>
-                <configuration>
-                    <url>${db.url}</url>
-                    <user>${db.user}</user>
-                    <password>${db.password}</password>
-                    <locations>
-                        <location>filesystem:src/main/resources/scenario</location>
-                    </locations>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>migrate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+            <!--                <groupId>org.flywaydb</groupId>-->
+            <!--                <artifactId>flyway-maven-plugin</artifactId>-->
+            <!--                <version>10.17.0</version>-->
+            <!--                <configuration>-->
+            <!--                    <url>${db.url}</url>-->
+            <!--                    <user>${db.user}</user>-->
+            <!--                    <password>${db.password}</password>-->
+            <!--                    <locations>-->
+            <!--                        <location>filesystem:src/main/resources/scenario</location>-->
+            <!--                    </locations>-->
+            <!--                </configuration>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <phase>validate</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>migrate</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
