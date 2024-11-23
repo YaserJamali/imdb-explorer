@@ -1,165 +1,184 @@
-DROP VIEW IF EXISTS GLOBOX.VW_BEST_MOVIES_PER_YEAR_BASED_ON_IMDB_RANKING;
-DROP VIEW IF EXISTS GLOBOX.VW_DIRECTORS_WRITERS_SAME;
-DROP VIEW IF EXISTS GLOBOX.VW_DIRECTORS_WRITERS_SAME_AND_ALIVE;
-DROP VIEW IF EXISTS GLOBOX.VW_DIRECTORS_WRITERS_SAME_AND_ALIVE_B_NULL;
-DROP VIEW IF EXISTS GLOBOX.VW_TITLE_WITH_TWO_OR_MORE_ACTORS;
-DROP VIEW IF EXISTS GLOBOX.VW_TITLE_WITH_TWO_OR_MORE_CATEGORY_TYPE;
+-- CREATE APPLICATION RELATED TABLES
+
+CREATE TABLE IF NOT EXISTS NAME_BASICS_ENTITY_PRIMARY_PROFESSION
+(
+    NAME_BASICS_ENTITY_NCONST VARCHAR(255) NOT NULL,
+    PRIMARY_PROFESSION        VARCHAR(255) NULL,
+    CONSTRAINT FK_NAME_BASICS_ENTITY_PRIMARY_PROFESSION_NCONST
+        FOREIGN KEY (NAME_BASICS_ENTITY_NCONST) REFERENCES TB_NAME_BASICS (NCONST)
+);
 
 
 
-CREATE VIEW GLOBOX.VW_BEST_MOVIES_PER_YEAR_BASED_ON_IMDB_RANKING AS
-WITH RankedMovies AS (SELECT tbt.tconst,
-                             tbt.end_year,
-                             tbt.is_adult,
-                             tbt.original_title,
-                             tbt.primary_title,
-                             tbt.runtime_minutes,
-                             tbt.start_year,
-                             tbt.title_type,
-                             tbg.title_basics_entity_tconst,
-                             tbg.genres,
-                             tr.tconst                                                                                                            AS rating_tconst,
-                             tr.average_rating,
-                             tr.number_of_votes,
-                             ROW_NUMBER() OVER (PARTITION BY tbt.start_year, tbg.genres ORDER BY tr.average_rating DESC, tr.number_of_votes DESC) AS row_num
-                      FROM tb_title_basics tbt
+CREATE TABLE IF NOT EXISTS TB_NAME_BASICS
+(
+    NCONST       VARCHAR(255) NOT NULL
+        PRIMARY KEY,
+    BIRTH_YEAR   INT          NULL,
+    DEATH_YEAR   INT          NULL,
+    PRIMARY_NAME VARCHAR(255) NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS TB_TITLE_BASICS
+(
+    TCONST          VARCHAR(255) NOT NULL
+        PRIMARY KEY,
+    END_YEAR        INT          NULL,
+    IS_ADULT        BIT          NULL,
+    ORIGINAL_TITLE  VARCHAR(255) NULL,
+    PRIMARY_TITLE   VARCHAR(255) NULL,
+    RUNTIME_MINUTES INT          NULL,
+    START_YEAR      INT          NULL,
+    TITLE_TYPE      VARCHAR(255) NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS TB_TITLE_CREW
+(
+    TCONST VARCHAR(255) NOT NULL
+        PRIMARY KEY
+);
+
+
+CREATE TABLE IF NOT EXISTS TB_TITLE_PRINCIPALS
+(
+    TCONST     VARCHAR(255) NOT NULL,
+    CATEGORY   VARCHAR(255) NULL,
+    CHARACTERS VARCHAR(255) NULL,
+    JOB        VARCHAR(255) NULL,
+    NCONST     VARCHAR(255) NULL,
+    ORDERING   INT          NOT NULL,
+    PRIMARY KEY (TCONST, ORDERING),
+    CONSTRAINT FK_TITLE_PRINCIPALS_NCONST
+        FOREIGN KEY (NCONST) REFERENCES TB_NAME_BASICS (NCONST),
+    CONSTRAINT FK_TITLE_PRINCIPALS_TCONST
+        FOREIGN KEY (TCONST) REFERENCES TB_TITLE_BASICS (TCONST)
+);
+
+CREATE TABLE IF NOT EXISTS TB_TITLE_RATINGS
+(
+    TCONST          VARCHAR(255) NOT NULL
+        PRIMARY KEY,
+    AVERAGE_RATING  DOUBLE       NULL,
+    NUMBER_OF_VOTES INT          NULL
+);
+
+CREATE TABLE IF NOT EXISTS TITLE_BASICS_ENTITY_GENRES
+(
+    TITLE_BASICS_ENTITY_TCONST VARCHAR(255) NOT NULL,
+    GENRES                     VARCHAR(255) NULL,
+    CONSTRAINT FK_TITLE_BASICS_ENTITY_GENRES_TCONST
+        FOREIGN KEY (TITLE_BASICS_ENTITY_TCONST) REFERENCES TB_TITLE_BASICS (TCONST)
+);
+
+CREATE TABLE IF NOT EXISTS TITLE_CREW_ENTITY_DIRECTORS
+(
+    TITLE_CREW_ENTITY_TCONST VARCHAR(255) NOT NULL,
+    DIRECTORS                VARCHAR(255) NULL,
+    CONSTRAINT FK_TITLE_CREW_ENTITY_DIRECTORS_TCONST
+        FOREIGN KEY (TITLE_CREW_ENTITY_TCONST) REFERENCES TB_TITLE_CREW (TCONST)
+);
+
+CREATE TABLE IF NOT EXISTS TITLE_CREW_ENTITY_WRITERS
+(
+    TITLE_CREW_ENTITY_TCONST VARCHAR(255) NOT NULL,
+    WRITERS                  VARCHAR(255) NULL,
+    CONSTRAINT FK_TITLE_CREW_ENTITY_WRITERS_TCONST
+        FOREIGN KEY (TITLE_CREW_ENTITY_TCONST) REFERENCES TB_TITLE_CREW (TCONST)
+);
+
+
+
+-- DROP VIEWS
+DROP VIEW IF EXISTS GLOBOX.VW_BEST_GENRES_OF_MOVIES;
+DROP VIEW IF EXISTS GLOBOX.VW_CAST_TITLES;
+DROP VIEW IF EXISTS GLOBOX.VW_TITLES_DIRECTORS_WRITERS_SAME;
+
+-- CREATE VIEWS AS REQUIRED BY THE APPLICATION SCENARIO
+
+CREATE VIEW GLOBOX.VW_BEST_GENRES_OF_MOVIES AS
+WITH RANKEDMOVIES AS (SELECT TBT.TCONST,
+                             TBT.END_YEAR,
+                             TBT.IS_ADULT,
+                             TBT.ORIGINAL_TITLE,
+                             TBT.PRIMARY_TITLE,
+                             TBT.RUNTIME_MINUTES,
+                             TBT.START_YEAR,
+                             TBT.TITLE_TYPE,
+                             TBG.TITLE_BASICS_ENTITY_TCONST,
+                             TBG.GENRES,
+                             TR.TCONST                                                                                                            AS RATING_TCONST,
+                             TR.AVERAGE_RATING,
+                             TR.NUMBER_OF_VOTES,
+                             ROW_NUMBER() OVER (PARTITION BY TBT.START_YEAR, TBG.GENRES ORDER BY TR.AVERAGE_RATING DESC, TR.NUMBER_OF_VOTES DESC) AS ROW_NUM
+                      FROM TB_TITLE_BASICS TBT
                                JOIN
-                           tb_title_ratings tr ON tbt.tconst = tr.tconst
+                           TB_TITLE_RATINGS TR ON TBT.TCONST = TR.TCONST
                                JOIN
-                           title_basics_entity_genres tbg ON tbt.tconst = tbg.title_basics_entity_tconst
-                      WHERE tbt.start_year IS NOT NULL)
-SELECT tconst,
-       end_year,
-       is_adult,
-       original_title,
-       primary_title,
-       runtime_minutes,
-       start_year,
-       title_type,
-       title_basics_entity_tconst,
-       genres,
-       rating_tconst,
-       average_rating,
-       number_of_votes
-FROM RankedMovies
-WHERE row_num = 1
-ORDER BY start_year;
-
-create view GLOBOX.VW_DIRECTORS_WRITERS_SAME as
-select `tb`.`tconst`                   AS `tconst`,
-       `tb`.`end_year`                 AS `end_year`,
-       `tb`.`is_adult`                 AS `is_adult`,
-       `tb`.`original_title`           AS `original_title`,
-       `tb`.`primary_title`            AS `primary_title`,
-       `tb`.`runtime_minutes`          AS `runtime_minutes`,
-       `tb`.`start_year`               AS `start_year`,
-       `tb`.`title_type`               AS `title_type`,
-       `tw`.`writers`                  AS `id_of_writer_of_movie`,
-       `td`.`directors`                AS `id_of_director_of_movie`,
-       `tw`.`title_crew_entity_tconst` AS `id_of_W_movie`,
-       `td`.`title_crew_entity_tconst` AS `id_of_D_movie`
-from (((`globox`.`tb_title_basics` `tb` join `globox`.`title_crew_entity_directors` `td`
-        on ((`tb`.`tconst` = `td`.`title_crew_entity_tconst`))) join `globox`.`title_crew_entity_writers` `tw`
-       on ((`tb`.`tconst` = `tw`.`title_crew_entity_tconst`))) join `globox`.`tb_name_basics` `tnb`
-      on ((`td`.`directors` = `tnb`.`nconst`)))
-where (`td`.`directors` = `tw`.`writers`);
+                           TITLE_BASICS_ENTITY_GENRES TBG ON TBT.TCONST = TBG.TITLE_BASICS_ENTITY_TCONST
+                      WHERE TBT.START_YEAR IS NOT NULL)
+SELECT TCONST,
+       END_YEAR,
+       IS_ADULT,
+       ORIGINAL_TITLE,
+       PRIMARY_TITLE,
+       RUNTIME_MINUTES,
+       START_YEAR,
+       TITLE_TYPE,
+       TITLE_BASICS_ENTITY_TCONST,
+       GENRES,
+       RATING_TCONST,
+       AVERAGE_RATING,
+       NUMBER_OF_VOTES
+FROM RANKEDMOVIES
+WHERE ROW_NUM = 1
+ORDER BY START_YEAR;
 
 
-create view GLOBOX.VW_DIRECTORS_WRITERS_SAME_AND_ALIVE as
-select `tb`.`tconst`          AS `tconst`,
-       `tb`.`end_year`        AS `end_year`,
-       `tb`.`is_adult`        AS `is_adult`,
-       `tb`.`original_title`  AS `original_title`,
-       `tb`.`primary_title`   AS `primary_title`,
-       `tb`.`runtime_minutes` AS `runtime_minutes`,
-       `tb`.`start_year`      AS `start_year`,
-       `tb`.`title_type`      AS `title_type`,
-       `tnb`.`nconst`         AS `nconst`,
-       `tnb`.`birth_year`     AS `birth_year`,
-       `tnb`.`death_year`     AS `death_year`,
-       `tnb`.`primary_name`   AS `primary_name`
-from (((`globox`.`tb_title_basics` `tb` join `globox`.`title_crew_entity_directors` `td`
-        on ((`tb`.`tconst` = `td`.`title_crew_entity_tconst`))) join `globox`.`title_crew_entity_writers` `tw`
-       on ((`tb`.`tconst` = `tw`.`title_crew_entity_tconst`))) join `globox`.`tb_name_basics` `tnb`
-      on ((`td`.`directors` = `tnb`.`nconst`)))
-where ((`td`.`directors` = `tw`.`writers`) and (`tnb`.`death_year` is null) and (`tnb`.`birth_year` is not null));
 
-
-create view GLOBOX.VW_DIRECTORS_WRITERS_SAME_AND_ALIVE_B_NULL as
-select `tb`.`tconst`          AS `tconst`,
-       `tb`.`end_year`        AS `end_year`,
-       `tb`.`is_adult`        AS `is_adult`,
-       `tb`.`original_title`  AS `original_title`,
-       `tb`.`primary_title`   AS `primary_title`,
-       `tb`.`runtime_minutes` AS `runtime_minutes`,
-       `tb`.`start_year`      AS `start_year`,
-       `tb`.`title_type`      AS `title_type`,
-       `tnb`.`nconst`         AS `nconst`,
-       `tnb`.`birth_year`     AS `birth_year`,
-       `tnb`.`death_year`     AS `death_year`,
-       `tnb`.`primary_name`   AS `primary_name`
-from (((`globox`.`tb_title_basics` `tb` join `globox`.`title_crew_entity_directors` `td`
-        on ((`tb`.`tconst` = `td`.`title_crew_entity_tconst`))) join `globox`.`title_crew_entity_writers` `tw`
-       on ((`tb`.`tconst` = `tw`.`title_crew_entity_tconst`))) join `globox`.`tb_name_basics` `tnb`
-      on ((`td`.`directors` = `tnb`.`nconst`)))
-where ((`td`.`directors` = `tw`.`writers`) and (`tnb`.`death_year` is null));
-
-
-CREATE VIEW GLOBOX.VW_TITLE_WITH_TWO_OR_MORE_ACTORS AS
-SELECT tbt.tconst,
-       tbt.end_year,
-       tbt.is_adult,
-       tbt.original_title,
-       tbt.primary_title,
-       tbt.runtime_minutes,
-       tbt.start_year,
-       tbt.title_type,
-       tbn.nconst,
-       tbn.primary_name,
-       tbn.birth_year,
-       tbn.death_year,
-       ttp.category,
-       ttp.characters,
-       ttp.job,
-       ttp.ordering
-FROM tb_title_basics tbt
+CREATE VIEW GLOBOX.VW_CAST_TITLES AS
+SELECT TB.TCONST,
+       NB.NCONST,
+       TP.CATEGORY,
+       TB.PRIMARY_TITLE,
+       TB.ORIGINAL_TITLE,
+       TB.START_YEAR,
+       TB.END_YEAR,
+       TB.RUNTIME_MINUTES,
+       TB.TITLE_TYPE,
+       NB.PRIMARY_NAME AS CAST_NAME
+FROM TB_TITLE_BASICS TB
          JOIN
-     tb_title_principals ttp ON tbt.tconst = ttp.tconst
+     TB_TITLE_PRINCIPALS TP ON TB.TCONST = TP.TCONST
          JOIN
-     tb_name_basics tbn ON ttp.nconst = tbn.nconst
-WHERE ttp.category = 'actor'
-  AND tbt.tconst IN (SELECT ttp.tconst
-                     FROM tb_title_principals ttp
-                     WHERE ttp.category = 'actor'
-                     GROUP BY ttp.tconst
-                     HAVING COUNT(ttp.nconst) >= 2)
-ORDER BY tbt.primary_title;
+     TB_NAME_BASICS NB ON TP.NCONST = NB.NCONST
+GROUP BY TB.TCONST,
+         NB.NCONST,
+         TP.CATEGORY,
+         TB.PRIMARY_TITLE,
+         TB.ORIGINAL_TITLE,
+         TB.START_YEAR,
+         TB.END_YEAR,
+         TB.RUNTIME_MINUTES,
+         TB.TITLE_TYPE,
+         NB.PRIMARY_NAME;
 
-CREATE VIEW GLOBOX.VW_TITLE_WITH_TWO_OR_MORE_CATEGORY_TYPE AS
-SELECT tbt.tconst,
-       tbt.end_year,
-       tbt.is_adult,
-       tbt.original_title,
-       tbt.primary_title,
-       tbt.runtime_minutes,
-       tbt.start_year,
-       tbt.title_type,
-       tbn.nconst,
-       tbn.primary_name,
-       tbn.birth_year,
-       tbn.death_year,
-       ttp.category,
-       ttp.characters,
-       ttp.job,
-       ttp.ordering
-FROM tb_title_basics tbt
-         JOIN
-     tb_title_principals ttp ON tbt.tconst = ttp.tconst
-         JOIN
-     tb_name_basics tbn ON ttp.nconst = tbn.nconst # WHERE ttp.category = 'actor'
-         AND tbt.tconst IN (SELECT ttp.tconst
-                            FROM tb_title_principals ttp
-#                      WHERE ttp.category = 'actor'
-                            GROUP BY ttp.tconst
-                            HAVING COUNT(ttp.nconst) >= 2)
-ORDER BY tbt.primary_title;
+CREATE  VIEW GLOBOX.VW_TITLES_DIRECTORS_WRITERS_SAME AS
+SELECT `TB`.`TCONST`          AS `TCONST`,
+       `TB`.`END_YEAR`        AS `END_YEAR`,
+       `TB`.`IS_ADULT`        AS `IS_ADULT`,
+       `TB`.`ORIGINAL_TITLE`  AS `ORIGINAL_TITLE`,
+       `TB`.`PRIMARY_TITLE`   AS `PRIMARY_TITLE`,
+       `TB`.`RUNTIME_MINUTES` AS `RUNTIME_MINUTES`,
+       `TB`.`START_YEAR`      AS `START_YEAR`,
+       `TB`.`TITLE_TYPE`      AS `TITLE_TYPE`,
+       `TNB`.`NCONST`         AS `NCONST`,
+       `TNB`.`BIRTH_YEAR`     AS `BIRTH_YEAR`,
+       `TNB`.`DEATH_YEAR`     AS `DEATH_YEAR`,
+       `TNB`.`PRIMARY_NAME`   AS `PRIMARY_NAME`
+FROM (((`GLOBOX`.`TB_TITLE_BASICS` `TB` JOIN `GLOBOX`.`TITLE_CREW_ENTITY_DIRECTORS` `TD`
+        ON ((`TB`.`TCONST` = `TD`.`TITLE_CREW_ENTITY_TCONST`))) JOIN `GLOBOX`.`TITLE_CREW_ENTITY_WRITERS` `TW`
+       ON ((`TB`.`TCONST` = `TW`.`TITLE_CREW_ENTITY_TCONST`))) JOIN `GLOBOX`.`TB_NAME_BASICS` `TNB`
+      ON ((`TD`.`DIRECTORS` = `TNB`.`NCONST`)))
+WHERE ((`TD`.`DIRECTORS` = `TW`.`WRITERS`) AND (`TNB`.`DEATH_YEAR` IS NULL));
