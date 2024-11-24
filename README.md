@@ -1,40 +1,43 @@
-# imdb-explorer
-this task created for globox human resource demand
 
-Technical assignment
-The purpose is for us to get a better understanding of your technical skills and focus.
-There is no real deadline but we hope that you will have had the time to finish the project by this time next 2 weeks.
-Spend a few days on it and attach a summary of what you would have done given more time.
-The most important things are performance efficiency and code cleanness.
+# IMDB Explorer
 
-Use IMDB Dataset in order to develop these functionalities using Java 8+ and expose proper RESTful HTTP APIs :
-1. Import the dataset into the application
-2. Return all the titles in which both director and writer are the same person and he/she
-is still alive
-3. Get two actors and return all the titles in which both of them played at
-4. Get a genre from the user and return best titles on each year for that genre based on
-number of votes and rating
-5. Count how many HTTP requests you received in this application since the last
+This project was created for Globox's human resource demand.
 
-startup
+### Dataset
 
+(https://www.imdb.com/interfaces).
+
+### API Endpoints
+
+#### VWSameDirectorWriterController
+
+•  [**Endpoint**]: `/same-director-writer`
+
+•  [**Description**]: APIs related to directors and writers who are the same person and alive.
+
+•  [**Method**]: `@GetMapping("/alive-director-writer")`
 
 
-Considerations:
+#### VWCastTitleController
 
-●  You Don’t have to use any external database application but if you want to just usethem in in-memory mode,
-your application should run standalone
+•  [**Endpoint**]: `/titles-of-casts`
 
-                ●  You are free to use any web framework you like but if you choose anything other
-                      than Spring Boot you need to explain why
+•  [**Description**]: APIs related to movies with two or more same actors.
 
-●  Do not implement any UI
-You can find the dataset and its explanation here: https://www.imdb.com/interfaces Let us know if you have any questions and good luck!
-
-    You can find the dataset and its explanation  here: https://www.imdb.com/interfaces
+•  [**Method**]: `@GetMapping("/movie-writer-director-alive")`
 
 
+#### VWBestGenresOfMoviesController
 
-     Let us know if you have any questions and good luck!
+•  [**Endpoint**]: `/best-movies-of-the-year`
+
+•  [**Description**]: APIs related to the best movies of the year based on IMDb ranking.
+
+•  [**Method**]: `@GetMapping("/genre/{genre}")`
 
 
+### Swagger Documentation
+
+You can access the Swagger documentation for this project at the following URL:
+
+[Swagger UI](http://localhost:8585/swagger-ui.html)
