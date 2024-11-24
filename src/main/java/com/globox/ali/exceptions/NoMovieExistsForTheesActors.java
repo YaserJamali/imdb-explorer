@@ -1,8 +1,8 @@
 package com.globox.ali.exceptions;
 
 public class NoMovieExistsForTheesActors extends RuntimeException {
-    private String firstActorNAme;
-    private String secondActorName;
+    private final String firstActorNAme;
+    private final String secondActorName;
 
     public NoMovieExistsForTheesActors(String firstActorNAme, String secondActorName) {
         super(String.format("No titles have been registered for the both specified name : %s and name: %s", firstActorNAme, secondActorName));

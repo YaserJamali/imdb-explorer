@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface VWSameDirectorWriterImpl
-        extends IBaseImmutableRepository<VWSameDirectorWriterEntity, String> {
-
+public interface VWSameDirectorWriterImpl extends IBaseImmutableRepository<VWSameDirectorWriterEntity, String> {
     List<VWSameDirectorWriterEntity> findAllByDeathYearIsNull(Pageable pageable);
 }

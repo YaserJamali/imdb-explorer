@@ -14,7 +14,7 @@ import java.util.List;
 public class VWSameDirectorWriterService
         extends BaseImmutableAbstractService<VWSameDirectorWriterEntity, VWSameDirectorWriterDto, String, VWSameDirectorWriterImpl> {
 
-    @Cacheable(value = "moviesByGenre")
+    @Cacheable(value = "aliveDirectorAndWriterMovies")
     public List<VWSameDirectorWriterDto> findAliveDirectorAndWriterForSameMovie(Integer pageNumber, Integer pageSize) throws ThereIsNoAliveSameDirectorAndWriterOnMovieException {
         List<VWSameDirectorWriterEntity> entityList = repository.findAllByDeathYearIsNull(
                 Pageable.ofSize(pageSize).withPage(pageNumber));

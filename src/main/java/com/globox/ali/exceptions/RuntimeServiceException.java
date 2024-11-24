@@ -1,5 +1,8 @@
 package com.globox.ali.exceptions;
 
+import lombok.Getter;
+
+@Getter
 public class RuntimeServiceException extends RuntimeException{
 
     private final String errorCode;
@@ -28,7 +31,4 @@ public class RuntimeServiceException extends RuntimeException{
         this.errorCode = errorCode;
     }
 
-    public String getErrorCode() {
-        return errorCode;
-    }
 }

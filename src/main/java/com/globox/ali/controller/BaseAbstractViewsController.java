@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
@@ -24,7 +23,6 @@ public abstract class BaseAbstractViewsController<E extends BaseEntity, D extend
 
     @Autowired
     protected S service;
-
 
     @GetMapping("/find/{id}")
     @Operation(summary = "Find an entity by ID", description = "This API finds an entity by its ID.")

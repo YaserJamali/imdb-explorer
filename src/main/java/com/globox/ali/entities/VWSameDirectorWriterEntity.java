@@ -5,13 +5,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.Setter;
+import org.hibernate.annotations.Immutable;
 
 
 @Entity
 @Table(name = "VW_TITLES_DIRECTORS_WRITERS_SAME")
 @Getter
-@Setter
+@Immutable
 public class VWSameDirectorWriterEntity extends BaseEntity {
 
     @Id

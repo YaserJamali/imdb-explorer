@@ -22,9 +22,6 @@ import java.util.List;
 @Tag(name = "VWBestMoviesPerYearBasedOnImdbRankingController", description = "APIs related to Best Movies of the Year Based on IMDb Ranking")
 public class VWBestGenresOfMoviesController
         extends BaseAbstractViewsController<VWBestGenresOfMoviesEntity, VWBestGenresOfMoviesDto, VWBestGenresOfMoviesService, String> {
-
-
-
     @GetMapping("/genre/{genre}")
     @Operation(summary = "Find all movies by genre", description = "This API finds all movies by the specified genre.")
     @ApiResponses({

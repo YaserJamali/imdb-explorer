@@ -22,12 +22,10 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(allowedOrigins);
         configuration.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
         configuration.setAllowCredentials(true);
-        configuration.setAllowedHeaders(List.of("Authorization", "Cache-control", "Pragma", "Content-Type", "Transfer-Encoding", "Date", "Keep-Alive"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Cache-control", "Pragma", "Content-Type", "Transfer-Encoding", "Date", "Keep-Alive","locale"));
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-
-
     }
 
 }

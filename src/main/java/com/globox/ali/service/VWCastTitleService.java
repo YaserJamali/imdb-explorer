@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class VWCastTitleService
         extends BaseImmutableAbstractService<VWCastTitleEntity, VWCastTitleDto, String, VWCastTitleRepositoryImplI> {
 
-    @Cacheable(value = "moviesByGenre")
+    @Cacheable(value = "commonMoviesByActors")
     public List<VWCastTitleDto> findAllByCategoryAndPrimaryName
             (String firstPrimaryName, String secondPrimaryName) throws NoTitleHasBeenRegisteredException, NoMovieExistsForTheesActors {
         List<VWCastTitleDto> listOfFirstInput = findByPrimaryName(firstPrimaryName);

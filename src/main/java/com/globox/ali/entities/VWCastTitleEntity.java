@@ -5,14 +5,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.Setter;
+import org.hibernate.annotations.Immutable;
 
 
 @Entity
 @Table(name = "VW_CAST_TITLES")
 @Getter
-@Setter
-
+@Immutable
 public class VWCastTitleEntity extends BaseEntity {
 
     @Id

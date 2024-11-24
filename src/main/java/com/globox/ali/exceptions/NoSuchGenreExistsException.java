@@ -1,6 +1,9 @@
 package com.globox.ali.exceptions;
 
 
+import lombok.Getter;
+
+@Getter
 public class NoSuchGenreExistsException extends RuntimeException {
     private final String genre;
 
@@ -9,7 +12,4 @@ public class NoSuchGenreExistsException extends RuntimeException {
         this.genre = genre;
     }
 
-    public String getGenre() {
-        return genre;
-    }
 }
