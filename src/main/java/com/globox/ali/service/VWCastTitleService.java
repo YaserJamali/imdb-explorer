@@ -21,26 +21,20 @@ public class VWCastTitleService
     public List<VWCastTitleDto> findAllByCategoryAndPrimaryName
             (String firstPrimaryName, String secondPrimaryName) throws NoTitleHasBeenRegisteredException, NoMovieExistsForTheesActors {
         List<VWCastTitleDto> listOfFirstInput = findByPrimaryName(firstPrimaryName);
-        if (listOfFirstInput.isEmpty()) {
-            //TODO  DO SOMTENIGS
-            throw new NoTitleHasBeenRegisteredException();
-        }
         List<VWCastTitleDto> listOfSecondInput = findByPrimaryName(secondPrimaryName);
-        if (listOfSecondInput.isEmpty()) {
-            //TODO  DO SOMTENIGS
-            throw new NoTitleHasBeenRegisteredException();
-        }
         List<VWCastTitleDto> commonMoviesForActors = getCommonMoviesForActors(listOfFirstInput, listOfSecondInput);
         if (commonMoviesForActors.isEmpty()) {
-            //TODO  DO SOMTENIGS
-            throw new NoMovieExistsForTheesActors();
+            throw new NoMovieExistsForTheesActors(firstPrimaryName, secondPrimaryName);
         }
         return commonMoviesForActors;
     }
 
-
-    private List<VWCastTitleDto> findByPrimaryName(String primaryName) {
-        return converter.convertEntity(repository.findAllByPrimaryNameLike(primaryName));
+    private List<VWCastTitleDto> findByPrimaryName(String primaryName) throws NoTitleHasBeenRegisteredException {
+        List<VWCastTitleEntity> allByPrimaryNameLike = repository.findAllByPrimaryNameLike(primaryName);
+        if (allByPrimaryNameLike.isEmpty()) {
+            throw new NoTitleHasBeenRegisteredException(primaryName);
+        }
+        return converter.convertEntity(allByPrimaryNameLike);
 
     }
 
