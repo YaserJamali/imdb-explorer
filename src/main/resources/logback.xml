@@ -28,7 +28,7 @@
     </triggeringPolicy>
 </appender>
 
-<logger name="com.hmaitech" level="INFO" additivity="false">
+<logger name="com.globox" level="INFO" additivity="false">
     <appender-ref ref="STDOUT" />
     <appender-ref ref="FILE" />
 </logger>

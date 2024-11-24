@@ -43,8 +43,8 @@ public class ExceptionsHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public @ResponseBody ErrorResponseDto handleException(Exception e, HttpServletRequest request) {
         e.printStackTrace();
-        String locale = Optional.ofNullable(request.getHeader("locale")).orElse("fa_IR");
-        Properties properties = propertiesMap.getOrDefault(locale, propertiesMap.get("fa_IR"));
+        String locale = Optional.ofNullable(request.getHeader("locale")).orElse("en_US");
+        Properties properties = propertiesMap.getOrDefault(locale, propertiesMap.get("en_US"));
 
         String errorKey = getErrorKey(e);
         String message = getErrorMessage(properties, errorKey, e);
@@ -77,6 +77,9 @@ public class ExceptionsHandler {
         } else if (e instanceof NoMovieExistsForTheesActors) {
             String actorNames = ((NoMovieExistsForTheesActors) e).getActorNames();
             return String.format(template, actorNames);
+        } else if (e instanceof NoSuchGenreExistsException) {
+            String genre = ((NoSuchGenreExistsException) e).getGenre();
+            return String.format(template, genre);
         } else if (e.getCause() instanceof UnrecognizedPropertyException) {
             String propertyName = ((UnrecognizedPropertyException) e.getCause()).getPropertyName();
             return String.format(template, propertyName);

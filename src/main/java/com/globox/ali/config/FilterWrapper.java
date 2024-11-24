@@ -25,7 +25,7 @@ public class FilterWrapper implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String path = httpRequest.getRequestURI();
-        List<String> allowedPaths = List.of("/best-movies-of-the-year", "/titles-of-casts", "/alive-director-writer");
+        List<String> allowedPaths = List.of("/best-movies-of-the-year", "/titles-of-casts", "/alive-director-writer", "/input-to-tables");
         if (!path.startsWith("/http-handler") && allowedPaths.stream().anyMatch(path::startsWith)) {
             counter++;
         }

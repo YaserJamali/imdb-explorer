@@ -41,6 +41,12 @@ public class BeanConfig {
                 .group("This Api gives The Number Of Http Requests")
                 .pathsToMatch("/http-handler/**")
                 .build();
+    } @Bean
+    public GroupedOpenApi inoutDataFromFileApi() {
+        return GroupedOpenApi.builder()
+                .group("APIs for importing data into tables")
+                .pathsToMatch("/input-to-tables/**")
+                .build();
     }
 
     @Bean

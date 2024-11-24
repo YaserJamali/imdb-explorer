@@ -6,6 +6,8 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,30 +24,12 @@ public class TitleCrewInputService {
     @Autowired
     private TitleCrewRepositoryImplI titleCrewRepository;
 
-    @Transactional
-    public void importTitlePrincipals(File file) throws IOException {
-        try (InputStream inputStream = new FileInputStream(file);
-             InputStream decompressedInputStream = GzipUtils.decompressGzip(inputStream);
-             Reader reader = new InputStreamReader(decompressedInputStream, StandardCharsets.UTF_8);
-             CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withDelimiter('\t').withFirstRecordAsHeader())) {
-
-            List<TitleCrewEntity> titleCrewEntities = new ArrayList<>();
-            for (CSVRecord record : csvParser) {
-                TitleCrewEntity entity = new TitleCrewEntity();
-                entity.setTconst(record.get("tconst"));
-                entity.setDirectors(parseArray(record.get("directors")));
-                entity.setWriters(parseArray(record.get("writers")));
-                titleCrewEntities.add(entity);
-            }
-            titleCrewRepository.saveAll(titleCrewEntities);
-        }
-    }
-
+    @Value("${app.import.file.to.table.title-crew}")
+    private String path;
 
     @Transactional
-//    @PostConstruct
     public void importTitleCrew() throws IOException {
-        File file = new File("C:\\Users\\Yaser\\Downloads\\title.crew.tsv.gz");
+        File file = new File(path);
         try (InputStream inputStream = new FileInputStream(file);
              InputStream decompressedInputStream = GzipUtils.decompressGzip(inputStream);
              Reader reader = new InputStreamReader(decompressedInputStream, StandardCharsets.UTF_8);

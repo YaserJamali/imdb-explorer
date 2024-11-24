@@ -6,6 +6,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,33 +23,12 @@ public class NameBasicsInputService {
     @Autowired
     private NameBasicRepositoryImplI nameBasicsRepository;
 
-    @Transactional
-    public void importNameBasics(File file) throws IOException {
-        try (InputStream inputStream = new FileInputStream(file);
-             InputStream decompressedInputStream = GzipUtils.decompressGzip(inputStream);
-             Reader reader = new InputStreamReader(decompressedInputStream, StandardCharsets.UTF_8);
-             CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withDelimiter('\t').withFirstRecordAsHeader())) {
-
-            List<NameBasicsEntity> nameBasicsEntities = new ArrayList<>();
-            for (CSVRecord record : csvParser) {
-                NameBasicsEntity entity = new NameBasicsEntity();
-                entity.setNconst(record.get("nconst"));
-                entity.setPrimaryName(record.get("primaryName"));
-                entity.setBirthYear(parseInteger(record.get("birthYear")));
-                entity.setDeathYear(parseInteger(record.get("deathYear")));
-                entity.setPrimaryProfession(parseArray(record.get("primaryProfession")));
-                entity.setKnownForTitles(parseArray(record.get("knownForTitles")));
-                nameBasicsEntities.add(entity);
-            }
-            nameBasicsRepository.saveAll(nameBasicsEntities);
-        }
-    }
+    @Value("${app.import.file.to.table.name-basic}")
+    private String path;
 
     @Transactional
-//    @PostConstruct
     public void importNameBasics() throws IOException {
-        File file = new File("C:\\Users\\Yaser\\Downloads\\name.basics.tsv.gz");
-
+        File file = new File(path);
         try (InputStream inputStream = new FileInputStream(file);
              InputStream decompressedInputStream = GzipUtils.decompressGzip(inputStream);
              Reader reader = new InputStreamReader(decompressedInputStream, StandardCharsets.UTF_8);
