@@ -17,7 +17,7 @@ public class VWBestGenresOfMoviesService
     @Cacheable(value = "moviesByGenre")
     public List<VWBestGenresOfMoviesDto> findAllByGenres(String genre, Integer pageNumber, Integer pageSize) {
         List<VWBestGenresOfMoviesEntity> entityList = repository.findAllByGenresLike(
-                genre, Pageable.ofSize(pageSize).withPage(pageNumber ));
+                genre, Pageable.ofSize(pageSize).withPage(pageNumber));
         return converter.convertEntity(entityList);
     }
 }

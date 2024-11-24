@@ -3,7 +3,9 @@ package com.globox.ali.log;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.globox.ali.config.FilterWrapper;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -18,13 +20,17 @@ import org.springframework.stereotype.Component;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+
 @Aspect
 @Component
+@RequiredArgsConstructor
 public class LoggerAspect {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggerAspect.class);
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
+
+    private final FilterWrapper filterWrapper;
 
     @PostConstruct
     public void init() {
@@ -38,6 +44,7 @@ public class LoggerAspect {
         logModel.setMethodName(signature.getName());
         logModel.setRequest(joinPoint.getArgs());
         LOGGER.info("Entering method: {} with arguments: {}", signature.getName(), logModel.getRequest());
+        LOGGER.info("HTTP Request Count: {}", filterWrapper.getCounter());
     }
 
     @AfterReturning(pointcut = "execution(* com.globox.ali.controller..*(..)) || execution(* com.globox.ali.service..*(..)) || execution(* com.globox.ali.repository..*(..))", returning = "result")
@@ -47,8 +54,8 @@ public class LoggerAspect {
         logModel.setMethodName(signature.getName());
         logModel.setResponse(result);
         LOGGER.info("Exiting method: {} with result: {}", signature.getName(), logModel.getResponse());
+        LOGGER.info("HTTP Allow Request Count: {}", filterWrapper.getCounter());
     }
-
 
     @Around("execution(* com.globox.ali.controller..*(..)) || execution(* com.globox.ali.service..*(..)) || execution(* com.globox.ali.repository..*(..))")
     public Object logAroundMethod(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
@@ -56,7 +63,7 @@ public class LoggerAspect {
         LogModel logModel = new LogModel();
         logModel.setMethodName(signature.getName());
         logModel.setRequest(proceedingJoinPoint.getArgs());
-        Object value = null;
+        Object value;
         try {
             value = proceedingJoinPoint.proceed();
             if (value != null) {
@@ -67,6 +74,7 @@ public class LoggerAspect {
             } else {
                 LOGGER.info("Success: {}", objectMapper.writeValueAsString(logModel));
             }
+            LOGGER.info("HTTP Request Count: {}", filterWrapper.getCounter());
         } catch (Throwable e) {
             StringWriter writer = new StringWriter();
             PrintWriter printWriter = new PrintWriter(writer);
@@ -75,9 +83,9 @@ public class LoggerAspect {
             printWriter.close();
             logModel.setErrorTrace(writer.toString());
             LOGGER.error("Failure: {}", objectMapper.writeValueAsString(logModel));
+            LOGGER.info("HTTP Request Count: {}", filterWrapper.getCounter());
             throw e;
         }
         return value;
     }
-
 }

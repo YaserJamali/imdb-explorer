@@ -34,6 +34,6 @@ public class VWCastTitleEntity extends BaseEntity {
     private Integer runtimeMinutes;
     @Column(name = "TITLE_TYPE")
     private String titleType;
-    @Column(name = "CAST_NAME")
+    @Column(name = "PRIMARY_NAME")
     private String primaryName;
 }

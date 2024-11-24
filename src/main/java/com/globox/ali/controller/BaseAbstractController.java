@@ -20,7 +20,6 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/table")
 @Tag(name = "BaseAbstractController", description = "Base controller for common CRUD operations")
 public abstract class BaseAbstractController<E extends BaseEntity, D extends BaseDto, ID extends Serializable> {
 

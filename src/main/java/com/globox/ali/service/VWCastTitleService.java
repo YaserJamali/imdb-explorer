@@ -19,7 +19,7 @@ public class VWCastTitleService
 
     @Cacheable(value = "moviesByGenre")
     public List<VWCastTitleDto> findAllByCategoryAndPrimaryName
-            (String firstPrimaryName, String secondPrimaryName, Integer pageNumber, Integer pageSize) throws NoTitleHasBeenRegisteredException, NoMovieExistsForTheesActors {
+            (String firstPrimaryName, String secondPrimaryName) throws NoTitleHasBeenRegisteredException, NoMovieExistsForTheesActors {
         List<VWCastTitleDto> listOfFirstInput = findByPrimaryName(firstPrimaryName);
         if (listOfFirstInput.isEmpty()) {
             //TODO  DO SOMTENIGS
@@ -40,7 +40,7 @@ public class VWCastTitleService
 
 
     private List<VWCastTitleDto> findByPrimaryName(String primaryName) {
-        return converter.convertEntity(repository.findAllByCategoryAndPrimaryName(primaryName));
+        return converter.convertEntity(repository.findAllByPrimaryNameLike(primaryName));
 
     }
 

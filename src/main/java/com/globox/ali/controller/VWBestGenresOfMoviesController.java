@@ -24,6 +24,7 @@ public class VWBestGenresOfMoviesController
         extends BaseAbstractViewsController<VWBestGenresOfMoviesEntity, VWBestGenresOfMoviesDto, VWBestGenresOfMoviesService, String> {
 
 
+
     @GetMapping("/genre/{genre}")
     @Operation(summary = "Find all movies by genre", description = "This API finds all movies by the specified genre.")
     @ApiResponses({

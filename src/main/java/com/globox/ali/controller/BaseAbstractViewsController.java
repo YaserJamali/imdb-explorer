@@ -12,18 +12,19 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
 import java.util.List;
 
 @RestController
-@RequestMapping("/view")
 @Tag(name = "BaseAbstractViewsController", description = "Base controller for view operations")
 public abstract class BaseAbstractViewsController<E extends BaseEntity, D extends BaseDto, S extends BaseImmutableAbstractService<E, D, ID, ? extends JpaRepository<E, ID>>, ID extends Serializable> {
 
     @Autowired
     protected S service;
+
 
     @GetMapping("/find/{id}")
     @Operation(summary = "Find an entity by ID", description = "This API finds an entity by its ID.")
@@ -62,4 +63,6 @@ public abstract class BaseAbstractViewsController<E extends BaseEntity, D extend
     public List<D> findByExample(@RequestBody D example) {
         return service.findByExample(example);
     }
+
+
 }

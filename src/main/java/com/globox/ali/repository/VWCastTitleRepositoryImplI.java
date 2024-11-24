@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface VWCastTitleRepositoryImplI
         extends IBaseImmutableRepository<VWCastTitleEntity, String> {
-    List<VWCastTitleEntity> findAllByCategoryAndPrimaryName(String primaryName, Pageable pageable);
+//    List<VWCastTitleEntity> findAllByPrimaryName(String primaryName, Pageable pageable);
 
-    List<VWCastTitleEntity> findAllByCategoryAndPrimaryName(String primaryName);
+    List<VWCastTitleEntity> findAllByPrimaryNameLike(String primaryName);
 }
