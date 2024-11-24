@@ -11,9 +11,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication(scanBasePackages = "com.globox.ali")
 @EnableJpaRepositories
 @EnableTransactionManagement
-@EnableJpaAuditing
-//@EnableWebSecurity
-//@SupportedValidationTarget(ValidationTarget.ANNOTATED_ELEMENT)
 public class Server {
 
     public static void main(String[] args) {
