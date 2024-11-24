@@ -8,15 +8,16 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class VWDirectorsWritersSameAndAliveDto extends BaseDto {
+public class VWSameDirectorWriterDto extends BaseDto {
+
     private String tconst;
-    private String titleType;
-    private String primaryTitle;
-    private String originalTitle;
-    private boolean isAdult;
-    private Integer startYear;
     private Integer endYear;
+    private Boolean isAdult;
+    private String originalTitle;
+    private String primaryTitle;
     private Integer runtimeMinutes;
+    private Integer startYear;
+    private String titleType;
     private String nconst;
     private String primaryName;
     private Integer birthYear;

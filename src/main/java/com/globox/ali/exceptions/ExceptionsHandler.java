@@ -1,8 +1,8 @@
-package com.yaser.edu.handler;
+package com.globox.ali.exceptions;
 
 
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
-import com.yaser.edu.dto.ExceptionDto;
+import com.globox.ali.dto.ErrorResponseDto;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,7 @@ import java.util.Properties;
 @ControllerAdvice
 public class ExceptionsHandler {
 
-    private final static String[] LOCALES = {"fa_IR", "en_US"};
+    private final static String[] LOCALES = {"fa_IR", "en_US","tr_TR"};
     Map<String, Properties> propertiesMap = new HashMap<>();
 
     @PostConstruct
@@ -46,7 +46,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public @ResponseBody ExceptionDto handleException(Exception e, HttpServletRequest request) {
+    public @ResponseBody ErrorResponseDto handleException(Exception e, HttpServletRequest request) {
         e.printStackTrace();
         String locale = request.getHeader("locale");
         Properties properties = this.propertiesMap.get(locale);
@@ -71,7 +71,7 @@ public class ExceptionsHandler {
         }
 
 
-        return ExceptionDto.builder()
+        return ErrorResponseDto.builder()
                 .message(String.valueOf(translate))
                 .timeStamp(new Date())
                 .build();

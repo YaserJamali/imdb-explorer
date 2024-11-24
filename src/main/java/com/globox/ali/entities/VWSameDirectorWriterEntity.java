@@ -9,31 +9,33 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name = "vw_directors_writers_same_and_alive")
+@Table(name = "VW_TITLES_DIRECTORS_WRITERS_SAME")
 @Getter
 @Setter
-public class VWDirectorsWritersSameAndAliveEntity extends BaseEntity {
+public class VWSameDirectorWriterEntity extends BaseEntity {
+
     @Id
     private String tconst;
-    @Column(name = "TITLE_TYPE")
-    private String titleType;
-    @Column(name = "PRIMARY_TITLE")
-    private String primaryTitle;
-    @Column(name = "ORIGINAL_TITLE")
-    private String originalTitle;
-    @Column(name = "IS_ADULT")
-    private boolean isAdult;
-    @Column(name = "START_YEAR")
-    private Integer startYear;
     @Column(name = "END_YEAR")
     private Integer endYear;
+    @Column(name = "IS_ADULT")
+    private Boolean isAdult;
+    @Column(name = "ORIGINAL_TITLE")
+    private String originalTitle;
+    @Column(name = "PRIMARY_TITLE")
+    private String primaryTitle;
     @Column(name = "RUNTIME_MINUTES")
     private Integer runtimeMinutes;
+    @Column(name = "START_YEAR")
+    private Integer startYear;
+    @Column(name = "TITLE_TYPE")
+    private String titleType;
+    @Column(name = "nconst")
     private String nconst;
-    @Column(name = "PRIMARY_NAME")
+    @Column(name = "primary_name")
     private String primaryName;
     @Column(name = "birth_year")
     private Integer birthYear;
-    @Column(name = "DEATH_YEAR")
+    @Column(name = "death_year")
     private Integer deathYear;
 }

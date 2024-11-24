@@ -1,4 +1,4 @@
-package com.yaser.edu.dto;
+package com.globox.ali.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -11,9 +11,8 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExceptionDto {
+public class ErrorResponseDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-mm-dd'T'HH:mm:ss")
     private Date timeStamp;
     private String message;
-//    private int errorCode;
 }

@@ -14,6 +14,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class LogModel {
     private String methodName;
+    private String className;
     private Object request;
     private Object response;
     private String errorTrace;

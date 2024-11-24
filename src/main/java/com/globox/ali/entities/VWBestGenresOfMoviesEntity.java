@@ -9,11 +9,11 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name = "VW_BEST_MOVIES_PER_YEAR_BASED_ON_IMDB_RANKING")
+@Table(name = "VW_BEST_GENRES_OF_MOVIES")
 @Getter
 @Setter
 
-public class VWBestMoviesPerYearBasedOnImdbRankingEntity extends BaseEntity {
+public class VWBestGenresOfMoviesEntity extends BaseEntity {
 
     @Id
     private String tconst;
@@ -36,5 +36,5 @@ public class VWBestMoviesPerYearBasedOnImdbRankingEntity extends BaseEntity {
     @Column(name = "average_rating")
     private Double averageRatings;
     @Column(name = "number_of_votes")
-    private String numVotes;
+    private Long numVotes;
 }
