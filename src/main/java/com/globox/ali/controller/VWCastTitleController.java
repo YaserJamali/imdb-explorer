@@ -37,8 +37,8 @@ public class VWCastTitleController
                             schema = @Schema(implementation = ErrorResponseDto.class)))
     })
     public ResponseEntity<List<VWCastTitleDto>> findAllByCategoryAndPrimaryName(
-            @RequestParam("firstPrimaryName") String firstPrimaryName,
-            @RequestParam("secondPrimaryName") String secondPrimaryName)
+            @RequestParam(value="firstPrimaryName" ,defaultValue = "Brad Pitt", required = true) String firstPrimaryName,
+            @RequestParam(value="secondPrimaryName" ,defaultValue = "george clooney", required = true) String secondPrimaryName)
             throws NoTitleHasBeenRegisteredException, NoMovieExistsForTheesActors {
         return ResponseEntity.ok().body(service.findAllByCategoryAndPrimaryName(firstPrimaryName, secondPrimaryName));
     }
